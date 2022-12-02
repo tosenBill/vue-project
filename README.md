@@ -1,3 +1,7 @@
 # vue-project
 all vue project.
-111
+
+# environment
+## node -v 16.14.0
+
+#
