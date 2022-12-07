@@ -17,23 +17,6 @@ export const constantRouterMap = [
     },
   },
   {
-    path: "/about",
-    component: Layout,
-    name: "about",
-    meta: {},
-    children: [
-      {
-        path: "index",
-        component: () => import("../views/AboutView.vue"),
-        name: "aboutDemo",
-        meta: {
-          title: "关于",
-          icon: "cib:telegram-plane",
-        },
-      },
-    ],
-  },
-  {
     path: "/login",
     component: () => import("../views/Login/LoginPage.vue"),
     name: "login",
@@ -71,6 +54,40 @@ export const asyncRouterMap = [
     ],
   },
   {
+    path: "/about",
+    component: Layout,
+    name: "about",
+    meta: {},
+    children: [
+      {
+        path: "index",
+        component: () => import("../views/AboutView.vue"),
+        name: "aboutDemo",
+        meta: {
+          title: "关于",
+          icon: "cib:telegram-plane",
+        },
+      },
+    ],
+  },
+  {
+    path: "/guide",
+    component: Layout,
+    name: "guide",
+    meta: {},
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/Guide/Guide.vue"),
+        name: "GuideDemo",
+        meta: {
+          title: "引导",
+          icon: "cib:telegram-plane",
+        },
+      },
+    ],
+  },
+  {
     path: "/HomeView",
     component: Layout,
     name: "HomeView",
@@ -88,6 +105,43 @@ export const asyncRouterMap = [
           // hidden: true,
           title: "home",
           // noTagsView: true,
+        },
+      },
+    ],
+  },
+  {
+    path: "/error",
+    component: Layout,
+    redirect: "/error/404",
+    name: "Error",
+    meta: {
+      title: "错误页面",
+      icon: "ci:error",
+      alwaysShow: true,
+    },
+    children: [
+      {
+        path: "404-demo",
+        component: () => import("@/views/Error/404.vue"),
+        name: "404Demo",
+        meta: {
+          title: "404",
+        },
+      },
+      {
+        path: "403-demo",
+        component: () => import("@/views/Error/403.vue"),
+        name: "403Demo",
+        meta: {
+          title: "403",
+        },
+      },
+      {
+        path: "500-demo",
+        component: () => import("@/views/Error/500.vue"),
+        name: "500Demo",
+        meta: {
+          title: "500",
         },
       },
     ],

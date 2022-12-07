@@ -37,7 +37,7 @@ import { setupRouter } from "./router";
 
 // app.mount("#app");
 
-// import "./permission";
+import "./permission";
 
 // 创建实例
 const setupAll = () => {
