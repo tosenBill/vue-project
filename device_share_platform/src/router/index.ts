@@ -1,4 +1,8 @@
-import { createRouter, createWebHistory } from "vue-router";
+import {
+  createRouter,
+  createWebHistory,
+  createWebHashHistory,
+} from "vue-router";
 import HomeView from "../views/HomeView.vue";
 // import { Layout } from "@/utils/routerHelper";
 import Layout from "../layout/Layout.vue";
@@ -149,7 +153,7 @@ export const asyncRouterMap = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: constantRouterMap,
 });
 
