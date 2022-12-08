@@ -12,8 +12,9 @@ import type { App } from "vue";
 export const constantRouterMap = [
   {
     path: "/",
-    component: Layout,
-    redirect: "/dashboard/analysis",
+    // component: Layout,
+    // redirect: "/dashboard/analysis",
+    redirect: "/welcome",
     name: "Root",
     meta: {
       hidden: true,

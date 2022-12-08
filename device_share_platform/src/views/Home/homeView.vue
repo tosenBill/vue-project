@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Header, Footer } from "./components";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 // import { ContentWrap } from '@/components/ContentWrap'
 // import { useIntro } from '@/hooks/web/useIntro'
 import { ElInput } from "element-plus";
@@ -10,7 +10,14 @@ import { ElInput } from "element-plus";
 // const guideStart = () => {
 //   introRef.start();
 // };
-const input3 = ref("");
+const valueRef = ref("");
+// 监听
+watch(
+  () => valueRef.value,
+  (val: string) => {
+    console.log(val);
+  }
+);
 </script>
 
 <template>
@@ -23,7 +30,7 @@ const input3 = ref("");
           <span>工程建设设备共享管理平台</span>
         </div>
         <div class="search">
-          <ElInput>
+          <ElInput v-model="valueRef" type="text">
             <template #prefix>
               <Icon class="el-input__icon cursor-pointer" icon="ep:search" />
             </template>
