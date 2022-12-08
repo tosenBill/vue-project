@@ -31,6 +31,17 @@ export const constantRouterMap = [
       noTagsView: true,
     },
   },
+  {
+    path: "/welcome",
+    component: () => import("@/views/Home/homeView.vue"),
+    name: "welcome",
+    meta: {
+      hidden: true,
+      // title: t("router.login"),
+      title: "欢迎页",
+      noTagsView: true,
+    },
+  },
 ];
 
 export const asyncRouterMap = [

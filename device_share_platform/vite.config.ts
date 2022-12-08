@@ -1,20 +1,16 @@
+import type { UserConfig, ConfigEnv } from 'vite'
+
 import { resolve } from 'path'
 import { fileURLToPath, URL } from 'node:url'
 import { loadEnv } from 'vite'
-
-import type { UserConfig, ConfigEnv } from 'vite'
-
+import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-import'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import { viteMockServe } from 'vite-plugin-mock'
 // import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import WindiCSS from 'vite-plugin-windicss'
-
-import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-import'
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 // import PurgeIcons from 'vite-plugin-purge-icons'
-
-import { viteMockServe } from 'vite-plugin-mock'
-
 
 // https://vitejs.dev/config/
 const root = process.cwd()
@@ -89,11 +85,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           drop_console: env.VITE_DROP_CONSOLE === 'true'
         }
       },
-      // rollupOptions: {
-      //   external: [
-      //       "element-plus"
-      //   ]
-      // }
+    },
+    server: {
+      host: '0.0.0.0'
     },
     optimizeDeps: {
       include: [
