@@ -3,7 +3,8 @@ import { Header, Footer } from "./components";
 import { ref, watch } from "vue";
 // import { ContentWrap } from '@/components/ContentWrap'
 // import { useIntro } from '@/hooks/web/useIntro'
-import { ElInput } from "element-plus";
+import { ElInput, ElMessage } from "element-plus";
+import { isLogin } from "@/utils/validate";
 
 // const { introRef } = useIntro();
 
@@ -11,6 +12,12 @@ import { ElInput } from "element-plus";
 //   introRef.start();
 // };
 const valueRef = ref("");
+
+const searchHandle = () => {
+  if (!isLogin()) {
+    ElMessage.warning("请先登录~");
+  }
+};
 // 监听
 watch(
   () => valueRef.value,
@@ -34,7 +41,11 @@ watch(
             <template #prefix>
               <Icon class="el-input__icon cursor-pointer" icon="ep:search" />
             </template>
-            <template #suffix> 搜索 </template>
+            <template #suffix>
+              <span @click="searchHandle" class="search-btn"
+                >搜索
+              </span></template
+            >
           </ElInput>
         </div>
       </div>
@@ -81,6 +92,9 @@ watch(
           height: 50px;
         }
       }
+      .search-btn {
+        cursor: pointer;
+      }
     }
     .menu {
       background: #f2f2f2;
@@ -89,7 +103,7 @@ watch(
       justify-content: center;
       .content {
         display: flex;
-        color: #169bd5;
+        color: @text-blue;
         align-items: center;
         span {
           padding: 0 20px;

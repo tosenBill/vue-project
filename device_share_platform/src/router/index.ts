@@ -34,12 +34,23 @@ export const constantRouterMap = [
   },
   {
     path: "/welcome",
-    component: () => import("@/views/Home/homeView.vue"),
+    component: () => import("@/views/welcome/welcome.vue"),
     name: "welcome",
     meta: {
       hidden: true,
       // title: t("router.login"),
       title: "欢迎页",
+      noTagsView: true,
+    },
+  },
+  {
+    path: "/home",
+    component: () => import("@/views/Home/home.vue"),
+    name: "home",
+    meta: {
+      hidden: true,
+      // title: t("router.login"),
+      title: "首页",
       noTagsView: true,
     },
   },
@@ -113,16 +124,16 @@ export const asyncRouterMap = [
       alwaysShow: true,
     },
     children: [
-      {
-        path: "/home",
-        name: "home",
-        component: HomeView,
-        meta: {
-          // hidden: true,
-          title: "home",
-          // noTagsView: true,
-        },
-      },
+      // {
+      //   path: "/home",
+      //   name: "home",
+      //   component: HomeView,
+      //   meta: {
+      //     // hidden: true,
+      //     title: "home",
+      //     // noTagsView: true,
+      //   },
+      // },
     ],
   },
   {

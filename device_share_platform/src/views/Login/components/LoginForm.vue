@@ -42,7 +42,7 @@ const schema = reactive<FormSchema[]>([
   },
   {
     field: "username",
-    label: "username",
+    label: "用户名",
     value: "admin",
     component: "Input",
     colProps: {
@@ -54,7 +54,7 @@ const schema = reactive<FormSchema[]>([
   },
   {
     field: "password",
-    label: "password",
+    label: "密码",
     value: "admin",
     component: "InputPassword",
     colProps: {
@@ -79,20 +79,20 @@ const schema = reactive<FormSchema[]>([
       span: 24,
     },
   },
-  {
-    field: "other",
-    component: "Divider",
-    label: "otherLogin",
-    componentProps: {
-      contentPosition: "center",
-    },
-  },
-  {
-    field: "otherIcon",
-    colProps: {
-      span: 24,
-    },
-  },
+  // {
+  //   field: "other",
+  //   component: "Divider",
+  //   label: "otherLogin",
+  //   componentProps: {
+  //     contentPosition: "center",
+  //   },
+  // },
+  // {
+  //   field: "otherIcon",
+  //   colProps: {
+  //     span: 24,
+  //   },
+  // },
 ]);
 
 const iconSize = 30;
@@ -132,7 +132,6 @@ const signIn = async () => {
         if (res) {
           wsCache.set(appStore.getUserInfo, res.data);
           // 是否使用动态路由
-          console.log("appStore.getDynamicRouter", appStore.getDynamicRouter);
           if (appStore.getDynamicRouter) {
             getRole();
           } else {
@@ -225,39 +224,7 @@ const toRegister = () => {
         </ElButton>
       </div>
       <div class="w-[100%] mt-15px">
-        <ElButton class="w-[100%]" @click="toRegister">
-          注册
-          <!-- {{ t("login.register") }} -->
-        </ElButton>
-      </div>
-    </template>
-
-    <template #otherIcon>
-      <div class="flex justify-between w-[100%]">
-        <Icon
-          icon="ant-design:github-filled"
-          :size="iconSize"
-          class="cursor-pointer anticon"
-          :color="iconColor"
-        />
-        <Icon
-          icon="ant-design:wechat-filled"
-          :size="iconSize"
-          class="cursor-pointer anticon"
-          :color="iconColor"
-        />
-        <Icon
-          icon="ant-design:alipay-circle-filled"
-          :size="iconSize"
-          :color="iconColor"
-          class="cursor-pointer anticon"
-        />
-        <Icon
-          icon="ant-design:weibo-circle-filled"
-          :size="iconSize"
-          :color="iconColor"
-          class="cursor-pointer anticon"
-        />
+        <ElButton class="w-[100%]" @click="toRegister"> 注册 </ElButton>
       </div>
     </template>
   </Form>

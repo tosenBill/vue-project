@@ -49,7 +49,7 @@ html,
 body {
   padding: 0 !important;
   margin: 0;
-  overflow: hidden;
+  // overflow: hidden;
   .size;
 
   #app {
