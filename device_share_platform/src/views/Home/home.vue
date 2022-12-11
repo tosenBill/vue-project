@@ -66,6 +66,7 @@ watch(
       padding: 30px 0;
       display: flex;
       align-items: center;
+      background: #fff;
       .menu {
         margin-left: 50px;
         .content {

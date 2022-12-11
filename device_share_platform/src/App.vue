@@ -51,6 +51,7 @@ body {
   margin: 0;
   // overflow: hidden;
   .size;
+  width: @body-page-width;
 
   #app {
     .size;

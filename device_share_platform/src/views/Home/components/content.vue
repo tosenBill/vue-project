@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import Card from "./card.vue";
 
 const list = ref([
   {
@@ -47,13 +48,18 @@ const list = ref([
         </div>
       </div>
       <div class="info">
-        <h2>中石油设备共享平台</h2>
+        <div class="intorduce">
+          <div class="h1">中石油设备共享平台</div>
+          <div class="h4">工程设备共享解决方案</div>
+          <div class="btn">点击查看</div>
+        </div>
+        <img class="img" src="@/assets/imgs/home_3.png" alt="" />
       </div>
     </div>
     <div class="card-list">
       <div class="title">为您推荐</div>
-      <div class="card">
-        <div class="card-item"></div>
+      <div class="card-container">
+        <Card v-for="(o, index) in 5" :key="index" />
       </div>
     </div>
   </div>
@@ -61,9 +67,10 @@ const list = ref([
 
 <style lang="less" scoped>
 .home-content {
-  background: rgba(242, 242, 242, 1);
+  background: #f5f5f5;
   .navigate-list {
     display: flex;
+    margin-bottom: 10px;
     .list {
       background: rgba(51, 51, 51, 0.8);
       width: 230px;
@@ -89,9 +96,36 @@ const list = ref([
       display: flex;
       align-items: center;
       justify-content: center;
+      color: #999;
+      .h1 {
+        font-size: 36px;
+        font-weight: 700;
+      }
+      .h4 {
+        height: 48px;
+        font-size: 24px;
+      }
+      .btn {
+        width: 200px;
+        height: 45px;
+        background-color: rgba(240, 72, 68, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 3px;
+        font-size: 18px;
+        color: #ffffff;
+        margin-top: 30px;
+      }
+      .img {
+        width: 435px;
+        height: 290px;
+      }
     }
   }
   .card-list {
+    padding: 0 20px;
     .title {
       height: 50px;
       font-weight: 700;
@@ -101,12 +135,11 @@ const list = ref([
       align-items: center;
       color: #666;
     }
-    .card {
-      .card-item {
-        background: #fff;
-        width: 250px;
-        height: 250px;
-        border: 1px solid #eee;
+    .card-container {
+      display: flex;
+      padding: 10px 0;
+      > div:not(:last-child) {
+        margin-right: 20px;
       }
     }
   }
