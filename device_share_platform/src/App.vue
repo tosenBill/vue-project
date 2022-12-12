@@ -51,10 +51,10 @@ body {
   margin: 0;
   // overflow: hidden;
   .size;
-  width: @body-page-width;
-
+  min-width: @body-min-width;
   #app {
     .size;
+    // width: @body-page-width;
   }
 }
 

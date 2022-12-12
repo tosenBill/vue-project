@@ -28,6 +28,10 @@ const list = ref([
     id: 5,
   },
   {
+    title: "辅助专用车辆",
+    id: 8,
+  },
+  {
     title: "工程机械",
     id: 6,
   },
@@ -36,10 +40,11 @@ const list = ref([
     id: 7,
   },
 ]);
-const state = reactive({ isMouseEnter: false });
-const enter = (id?: string | number) => {
-  console.log(id, state);
+const state = reactive({ isMouseEnter: false, category: {} });
+const enter = (item: any) => {
+  console.log(item);
   state.isMouseEnter = true;
+  state.category = item;
 };
 const leave = () => {
   state.isMouseEnter = false;
@@ -54,16 +59,16 @@ const leave = () => {
           class="item"
           v-for="item in list"
           :key="item.id"
-          @mouseenter="enter(item.id)"
+          @mouseenter="enter(item)"
           @mouseleave="leave()"
         >
           <span>{{ item.title }}</span>
           <Icon class="el-input__icon" icon="ep:arrow-right" />
         </div>
       </div>
-      <div
-        :class="['translate-drawer', state.isMouseEnter ? 'inter' : '']"
-      ></div>
+      <div :class="['translate-drawer', state.isMouseEnter ? 'inter' : '']">
+        {{ state.category }}
+      </div>
       <div class="info">
         <div class="intorduce">
           <div class="h1">中石油设备共享平台</div>
@@ -90,9 +95,10 @@ const leave = () => {
     display: flex;
     margin-bottom: 10px;
     position: relative;
-    height: 360px;
+    height: 395px;
+    overflow: hidden;
     .list {
-      background: rgba(51, 51, 51, 0.8);
+      background: #585858;
       width: @list-item-width;
       padding: 20px 0;
       z-index: 2;
@@ -116,17 +122,15 @@ const leave = () => {
     .translate-drawer {
       position: absolute;
       width: 800px;
-      background: red;
+      background: #fff;
       height: 100%;
       top: 0;
+      left: @list-item-width;
       z-index: 1;
-      transition: all 0.3;
+      transition: transform 0.3s;
       transform: translateX(-100%);
       &.inter {
-        transform: translateX(10%);
-      }
-      &.out {
-        transform: translateX(-100%);
+        transform: translateX(0);
       }
     }
     .info {

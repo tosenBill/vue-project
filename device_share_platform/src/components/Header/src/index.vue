@@ -40,6 +40,7 @@ const valueRef = ref("");
 
 <style lang="less" scoped>
 .header-container {
+  background: @header-bg-color;
   .flex_font {
     font-size: 12px;
     color: #999;
@@ -48,12 +49,11 @@ const valueRef = ref("");
   }
   .content {
     height: 50px;
-    background: @header-bg-color;
-    padding: 0 50px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: @body-page-width;
+    width: @container-width;
   }
   .left {
     .flex_font();
