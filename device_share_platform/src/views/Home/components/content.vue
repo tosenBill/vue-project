@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import Card from "./card.vue";
 
 const list = ref([
@@ -36,17 +36,34 @@ const list = ref([
     id: 7,
   },
 ]);
+const state = reactive({ isMouseEnter: false });
+const enter = (id?: string | number) => {
+  console.log(id, state);
+  state.isMouseEnter = true;
+};
+const leave = () => {
+  state.isMouseEnter = false;
+};
 </script>
 
 <template>
   <div class="home-content">
     <div class="navigate-list">
       <div class="list">
-        <div class="item" v-for="item in list" :key="item.id">
+        <div
+          class="item"
+          v-for="item in list"
+          :key="item.id"
+          @mouseenter="enter(item.id)"
+          @mouseleave="leave()"
+        >
           <span>{{ item.title }}</span>
           <Icon class="el-input__icon" icon="ep:arrow-right" />
         </div>
       </div>
+      <div
+        :class="['translate-drawer', state.isMouseEnter ? 'inter' : '']"
+      ></div>
       <div class="info">
         <div class="intorduce">
           <div class="h1">中石油设备共享平台</div>
@@ -66,15 +83,20 @@ const list = ref([
 </template>
 
 <style lang="less" scoped>
+@list-item-width: 230px;
 .home-content {
   background: #f5f5f5;
   .navigate-list {
     display: flex;
     margin-bottom: 10px;
+    position: relative;
+    height: 360px;
     .list {
       background: rgba(51, 51, 51, 0.8);
-      width: 230px;
+      width: @list-item-width;
       padding: 20px 0;
+      z-index: 2;
+      position: absolute;
       .item {
         padding: 0 30px;
         height: 40px;
@@ -91,12 +113,29 @@ const list = ref([
         }
       }
     }
+    .translate-drawer {
+      position: absolute;
+      width: 800px;
+      background: red;
+      height: 100%;
+      top: 0;
+      z-index: 1;
+      transition: all 0.3;
+      transform: translateX(-100%);
+      &.inter {
+        transform: translateX(10%);
+      }
+      &.out {
+        transform: translateX(-100%);
+      }
+    }
     .info {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #999;
+      margin-left: @list-item-width;
       .h1 {
         font-size: 36px;
         font-weight: 700;
