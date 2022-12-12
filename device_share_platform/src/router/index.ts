@@ -54,6 +54,17 @@ export const constantRouterMap = [
       noTagsView: true,
     },
   },
+  {
+    path: "/DeviceManage",
+    component: () => import("@/views/DeviceManage/index.vue"),
+    name: "DeviceManage",
+    meta: {
+      hidden: true,
+      // title: t("router.login"),DeviceManage
+      title: "设备管理",
+      noTagsView: true,
+    },
+  },
 ];
 
 export const asyncRouterMap = [
