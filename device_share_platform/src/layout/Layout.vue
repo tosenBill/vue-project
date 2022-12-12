@@ -30,18 +30,18 @@ const renderLayout = () => {
       const { renderClassic } = useRenderLayout();
       return renderClassic();
     }
-    case "topLeft": {
-      const { renderTopLeft } = useRenderLayout();
-      return renderTopLeft();
-    }
-    case "top": {
-      const { renderTop } = useRenderLayout();
-      return renderTop();
-    }
-    case "cutMenu": {
-      const { renderCutMenu } = useRenderLayout();
-      return renderCutMenu();
-    }
+    // case "topLeft": {
+    //   const { renderTopLeft } = useRenderLayout();
+    //   return renderTopLeft();
+    // }
+    // case "top": {
+    //   const { renderTop } = useRenderLayout();
+    //   return renderTop();
+    // }
+    // case "cutMenu": {
+    //   const { renderCutMenu } = useRenderLayout();
+    //   return renderCutMenu();
+    // }
     default:
       break;
   }
@@ -67,9 +67,9 @@ export default defineComponent({
 
         {renderLayout()}
 
-        <Backtop></Backtop>
+        {/* <Backtop></Backtop> */}
 
-        <Setting></Setting>
+        {/* <Setting></Setting> */}
       </section>
     );
   },

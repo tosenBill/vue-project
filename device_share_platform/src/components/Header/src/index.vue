@@ -1,7 +1,8 @@
-<script setup lang="tsx">
-import { ref, watch } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 
-import { ElInput, ElMessage } from "element-plus";
+import { ElInput } from "element-plus";
+import MyMenu from "./Menu.vue";
 
 const valueRef = ref("");
 </script>
@@ -33,6 +34,7 @@ const valueRef = ref("");
         <span>在线客服</span>
       </div>
     </div>
+    <MyMenu></MyMenu>
   </div>
 </template>
 
@@ -44,16 +46,14 @@ const valueRef = ref("");
     display: flex;
     align-items: center;
   }
-  height: 50px;
-  background: @header-bg-color;
-  padding: 0 50px;
-  display: flex;
-  justify-content: center;
   .content {
+    height: 50px;
+    background: @header-bg-color;
+    padding: 0 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: @container-width;
+    width: @body-page-width;
   }
   .left {
     .flex_font();

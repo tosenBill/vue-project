@@ -1,7 +1,10 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="">设备管理</div>
+  <div class="device-management">设备管理msb</div>
 </template>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.management {
+}
+</style>

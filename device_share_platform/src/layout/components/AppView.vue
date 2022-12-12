@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useTagsViewStore } from "@/store/modules/tagsView";
 import { useAppStoreWithOut } from "@/store/modules/app";
-import { Footer } from "@/components/Footer";
+import { Footer, Footer2 } from "@/components/Footer";
 import { computed } from "vue";
 
 const appStore = useAppStoreWithOut();
@@ -22,7 +22,7 @@ const getCaches = computed((): string[] => {
 <template>
   <section
     :class="[
-      'p-[var(--app-content-padding)] w-[100%] bg-[var(--app-content-bg-color)] dark:bg-[var(--el-bg-color)]',
+      'w-[100%] bg-[var(--app-content-bg-color)] dark:bg-[var(--el-bg-color)]',
       {
         '!min-h-[calc(100%-var(--app-footer-height))]':
           fixedHeader &&
@@ -52,5 +52,5 @@ const getCaches = computed((): string[] => {
       </template>
     </router-view>
   </section>
-  <Footer v-if="footer" />
+  <Footer2 v-if="footer" />
 </template>

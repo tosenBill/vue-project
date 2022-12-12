@@ -43,28 +43,6 @@ export const constantRouterMap = [
       noTagsView: true,
     },
   },
-  {
-    path: "/home",
-    component: () => import("@/views/Home/home.vue"),
-    name: "home",
-    meta: {
-      hidden: true,
-      // title: t("router.login"),
-      title: "首页",
-      noTagsView: true,
-    },
-  },
-  {
-    path: "/DeviceManage",
-    component: () => import("@/views/DeviceManage/index.vue"),
-    name: "DeviceManage",
-    meta: {
-      hidden: true,
-      // title: t("router.login"),DeviceManage
-      title: "设备管理",
-      noTagsView: true,
-    },
-  },
 ];
 
 export const asyncRouterMap = [
@@ -109,6 +87,46 @@ export const asyncRouterMap = [
     ],
   },
   {
+    path: "/home",
+    component: Layout,
+    name: "home",
+    meta: {
+      title: "首页1",
+    },
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/Home/home.vue"),
+        name: "homePage",
+        meta: {
+          // hidden: true,
+          // title: t("router.login"),
+          title: "首页",
+          noTagsView: true,
+        },
+      },
+    ],
+  },
+  {
+    path: "/DeviceManage",
+    component: Layout,
+    name: "DeviceManage",
+    meta: {
+      title: "设备管理",
+    },
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/DeviceManage/index.vue"),
+        name: "DeviceManageIndex",
+        meta: {
+          title: "设备",
+          noTagsView: true,
+        },
+      },
+    ],
+  },
+  {
     path: "/guide",
     component: Layout,
     name: "guide",
@@ -125,28 +143,28 @@ export const asyncRouterMap = [
       },
     ],
   },
-  {
-    path: "/HomeView",
-    component: Layout,
-    name: "HomeView",
-    meta: {
-      title: "分类",
-      icon: "ant-design:dashboard-filled",
-      alwaysShow: true,
-    },
-    children: [
-      // {
-      //   path: "/home",
-      //   name: "home",
-      //   component: HomeView,
-      //   meta: {
-      //     // hidden: true,
-      //     title: "home",
-      //     // noTagsView: true,
-      //   },
-      // },
-    ],
-  },
+  // {
+  //   path: "/HomeView",
+  //   component: Layout,
+  //   name: "HomeView",
+  //   meta: {
+  //     title: "分类",
+  //     icon: "ant-design:dashboard-filled",
+  //     alwaysShow: true,
+  //   },
+  //   children: [
+  //     {
+  //       path: "/home",
+  //       name: "home",
+  //       component: HomeView,
+  //       meta: {
+  //         // hidden: true,
+  //         title: "home",
+  //         // noTagsView: true,
+  //       },
+  //     },
+  //   ],
+  // },
   {
     path: "/error",
     component: Layout,
