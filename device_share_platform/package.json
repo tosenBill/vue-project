@@ -56,6 +56,7 @@
     "terser": "^5.16.1",
     "typescript": "~4.7.4",
     "vite": "^3.2.4",
+    "vite-plugin-ejs": "^1.6.4",
     "vite-plugin-mock": "^2.9.6",
     "vite-plugin-purge-icons": "^0.9.1",
     "vite-plugin-style-import": "^2.0.0",

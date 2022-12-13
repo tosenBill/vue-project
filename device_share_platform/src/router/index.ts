@@ -5,7 +5,8 @@ import {
 } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 // import { Layout } from "@/utils/routerHelper";
-import Layout from "../layout/Layout.vue";
+// import Layout from "../layout/Layout.vue";
+const Layout = () => import("@/layout/Layout.vue");
 
 import type { App } from "vue";
 
@@ -49,7 +50,7 @@ export const asyncRouterMap = [
   {
     path: "/home",
     component: Layout,
-    redirect: "/home/index",
+    // redirect: "/home/index",
     name: "Home",
     meta: {
       title: "首页",
@@ -72,7 +73,7 @@ export const asyncRouterMap = [
   {
     path: "/lease",
     component: Layout,
-    redirect: "/lease/index",
+    redirect: "/lease/LeaseDevice",
     name: "Lease",
     meta: {
       title: "租赁",
@@ -80,9 +81,20 @@ export const asyncRouterMap = [
     },
     children: [
       {
-        path: "index",
-        component: () => import("@/views/Home/home.vue"),
-        name: "LeasePage",
+        path: "LeaseDevice",
+        component: () => import("@/views/Lease/LeaseDevice.vue"),
+        name: "LeaseDevice",
+        meta: {
+          // hidden: true,
+          // title: t("router.login"),
+          title: "出租设备",
+          noTagsView: true,
+        },
+      },
+      {
+        path: "QuestDevice",
+        component: () => import("@/views/Lease/QuestDevice.vue"),
+        name: "QuestDevice",
         meta: {
           // hidden: true,
           // title: t("router.login"),
@@ -147,7 +159,7 @@ export const asyncRouterMap = [
     },
     children: [
       {
-        path: "index",
+        path: "aboutPage",
         component: () => import("../views/AboutView.vue"),
         name: "aboutDemo",
         meta: {
@@ -161,7 +173,7 @@ export const asyncRouterMap = [
     path: "/deviceManage",
     component: Layout,
     name: "DeviceManage",
-    redirect: "/deviceManage/index",
+    // redirect: "/deviceManage/index",
     meta: {
       title: "设备管理",
       alwaysShow: true,

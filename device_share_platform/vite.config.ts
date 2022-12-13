@@ -10,6 +10,7 @@ import { viteMockServe } from 'vite-plugin-mock'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import WindiCSS from 'vite-plugin-windicss'
+import { ViteEjsPlugin } from "vite-plugin-ejs"
 // import PurgeIcons from 'vite-plugin-purge-icons'
 
 // https://vitejs.dev/config/
@@ -59,6 +60,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           setupProdMockServer()
           `
       }),
+      ViteEjsPlugin({
+        title: env.VITE_APP_TITLE
+      })
     ],
     css: {
       preprocessorOptions: {
