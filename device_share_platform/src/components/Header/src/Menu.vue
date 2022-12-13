@@ -1,8 +1,13 @@
 <script setup lang="ts">
-import { ref, reactive, unref } from "vue";
+import { ref, reactive, unref, computed } from "vue";
 
 import { Logo } from "@/components/LogoTitle";
 import { ElButton } from "element-plus";
+import { usePermissionStore } from "@/store/modules/permission";
+import { useRouter } from "vue-router";
+
+const { addRouters } = usePermissionStore();
+const { push } = useRouter();
 
 const munuList = [
   {
@@ -22,6 +27,12 @@ const munuList = [
   },
 ];
 
+console.log("permissionStore.addRouters", addRouters[0]);
+
+const list = computed(() => {
+  return addRouters.filter((router) => router?.meta?.alwaysShow);
+});
+
 const state = reactive({ isMouseEnter: false, category: {} });
 const enter = (item: any) => {
   console.log(item);
@@ -30,6 +41,10 @@ const enter = (item: any) => {
 };
 const leave = () => {
   state.isMouseEnter = false;
+};
+const childMenuClick = (parent, menuItem) => {
+  console.log(parent.path, menuItem.path);
+  push(parent.path + "/" + menuItem.path);
 };
 </script>
 
@@ -42,15 +57,21 @@ const leave = () => {
           <div class="menu">
             <div class="content">
               <div
-                v-for="(item, index) in munuList"
+                v-for="(item, index) in list"
                 :key="index"
                 @mouseenter="enter(item)"
                 @mouseleave="leave()"
                 class="item"
               >
-                <span>{{ item.title }}</span>
+                <span>{{ item.meta.title }}</span>
                 <div :class="['translate-drawer']">
-                  {{ state?.category?.title }}
+                  <div
+                    v-for="(child, cindex) in item.children"
+                    :key="cindex"
+                    @click="childMenuClick(item, child)"
+                  >
+                    {{ child?.meta?.title || "--" }}
+                  </div>
                 </div>
               </div>
             </div>

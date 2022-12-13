@@ -53,6 +53,7 @@ export const asyncRouterMap = [
     name: "Home",
     meta: {
       title: "首页",
+      alwaysShow: true,
     },
     children: [
       {
@@ -69,14 +70,60 @@ export const asyncRouterMap = [
     ],
   },
   {
+    path: "/lease",
+    component: Layout,
+    redirect: "/lease/index",
+    name: "Lease",
+    meta: {
+      title: "租赁",
+      alwaysShow: true,
+    },
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/Home/home.vue"),
+        name: "LeasePage",
+        meta: {
+          // hidden: true,
+          // title: t("router.login"),
+          title: "求租设备",
+          noTagsView: true,
+        },
+      },
+    ],
+  },
+  {
+    path: "/repair",
+    component: Layout,
+    // redirect: "/repair/index",
+    name: "Repair",
+    meta: {
+      title: "维修",
+      alwaysShow: true,
+    },
+    children: [
+      // {
+      //   path: "index",
+      //   component: () => import("@/views/Home/home.vue"),
+      //   name: "repairPage",
+      //   meta: {
+      //     // hidden: true,
+      //     // title: t("router.login"),
+      //     title: "首页",
+      //     noTagsView: true,
+      //   },
+      // },
+    ],
+  },
+  {
     path: "/dashboard",
     component: Layout,
     redirect: "/dashboard/analysis",
     name: "Dashboard",
     meta: {
-      title: "首页",
+      title: "面板",
       icon: "ant-design:dashboard-filled",
-      alwaysShow: true,
+      alwaysShow: false,
     },
     children: [
       {
@@ -95,7 +142,9 @@ export const asyncRouterMap = [
     path: "/about",
     component: Layout,
     name: "about",
-    meta: {},
+    meta: {
+      alwaysShow: false,
+    },
     children: [
       {
         path: "index",
@@ -109,17 +158,19 @@ export const asyncRouterMap = [
     ],
   },
   {
-    path: "/DeviceManage",
+    path: "/deviceManage",
     component: Layout,
     name: "DeviceManage",
+    redirect: "/deviceManage/index",
     meta: {
       title: "设备管理",
+      alwaysShow: true,
     },
     children: [
       {
         path: "index",
         component: () => import("@/views/DeviceManage/index.vue"),
-        name: "DeviceManageIndex",
+        name: "deviceManageIndex",
         meta: {
           title: "设备",
           noTagsView: true,
@@ -144,28 +195,6 @@ export const asyncRouterMap = [
       },
     ],
   },
-  // {
-  //   path: "/HomeView",
-  //   component: Layout,
-  //   name: "HomeView",
-  //   meta: {
-  //     title: "分类",
-  //     icon: "ant-design:dashboard-filled",
-  //     alwaysShow: true,
-  //   },
-  //   children: [
-  //     {
-  //       path: "/home",
-  //       name: "home",
-  //       component: HomeView,
-  //       meta: {
-  //         // hidden: true,
-  //         title: "home",
-  //         // noTagsView: true,
-  //       },
-  //     },
-  //   ],
-  // },
   {
     path: "/error",
     component: Layout,
@@ -174,7 +203,7 @@ export const asyncRouterMap = [
     meta: {
       title: "错误页面",
       icon: "ci:error",
-      alwaysShow: true,
+      alwaysShow: false,
     },
     children: [
       {
