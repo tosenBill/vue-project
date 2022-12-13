@@ -1,10 +1,37 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
-import { ElInput } from "element-plus";
+import { ElInput, ElMessageBox } from "element-plus";
 import MyMenu from "./Menu.vue";
+import { useCache } from "@/hooks/web/useCache";
+import { resetRouter } from "@/router";
 
 const valueRef = ref("");
+
+const { wsCache } = useCache();
+
+const { replace } = useRouter();
+
+const loginOut = () => {
+  ElMessageBox.confirm("是否退出本系统", "温馨提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  })
+    .then(async () => {
+      // const res = await loginOutApi().catch(() => {});
+      // if (res) {
+      //   wsCache.clear();
+      //   resetRouter(); // 重置静态路由表
+      //   replace("/login");
+      // }
+      wsCache.clear();
+      resetRouter(); // 重置静态路由表
+      replace("/login");
+    })
+    .catch(() => {});
+};
 </script>
 <template>
   <div class="header-container">
@@ -32,6 +59,7 @@ const valueRef = ref("");
         <span>领导角色登入</span>
         <span>共享中心角色登入</span>
         <span>在线客服</span>
+        <span style="color: red" @click="loginOut">退出</span>
       </div>
     </div>
     <MyMenu></MyMenu>
@@ -80,6 +108,9 @@ const valueRef = ref("");
         content: "|";
         display: inline-block;
         padding: 0 10px;
+      }
+      &:hover {
+        cursor: pointer;
       }
     }
   }

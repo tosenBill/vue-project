@@ -43,7 +43,7 @@ const list = ref([
 const state = reactive({ isMouseEnter: false, category: {} });
 const enter = (item: any) => {
   console.log(item);
-  state.isMouseEnter = true;
+  // state.isMouseEnter = true;
   state.category = item;
 };
 const leave = () => {
@@ -55,19 +55,21 @@ const leave = () => {
   <div class="home-content">
     <div class="navigate-list">
       <div class="list">
-        <div
-          class="item"
-          v-for="item in list"
-          :key="item.id"
-          @mouseenter="enter(item)"
-          @mouseleave="leave()"
-        >
-          <span>{{ item.title }}</span>
-          <Icon class="el-input__icon" icon="ep:arrow-right" />
+        <div class="item-box">
+          <div
+            class="item"
+            v-for="item in list"
+            :key="item.id"
+            @mouseenter="enter(item)"
+            @mouseleave="leave()"
+          >
+            <span>{{ item.title }}</span>
+            <Icon class="el-input__icon" icon="ep:arrow-right" />
+          </div>
         </div>
-      </div>
-      <div :class="['translate-drawer', state.isMouseEnter ? 'inter' : '']">
-        {{ state.category }}
+        <div :class="['translate-drawer']">
+          {{ state.category }}
+        </div>
       </div>
       <div class="info">
         <div class="intorduce">
@@ -98,11 +100,18 @@ const leave = () => {
     height: 395px;
     overflow: hidden;
     .list {
-      background: #585858;
-      width: @list-item-width;
-      padding: 20px 0;
-      z-index: 2;
-      position: absolute;
+      // z-index: 2;
+      // position: absolute;
+      .item-box {
+        background: #585858;
+        width: @list-item-width;
+        padding: 20px 0;
+        position: absolute;
+        z-index: 1;
+      }
+      &:hover .translate-drawer {
+        transform: translateX(0);
+      }
       .item {
         padding: 0 30px;
         height: 40px;
@@ -126,7 +135,7 @@ const leave = () => {
       height: 100%;
       top: 0;
       left: @list-item-width;
-      z-index: 1;
+      // z-index: -1;
       transition: transform 0.3s;
       transform: translateX(-100%);
       &.inter {

@@ -13,6 +13,7 @@ import type { RouteLocationNormalizedLoaded, RouteRecordRaw } from "vue-router";
 import type { UserType } from "@/api/login/types";
 import { useValidator } from "@/hooks/web/useValidator";
 import type { FormSchema } from "@/types/form";
+import { asyncRouterMap } from "@/router";
 
 const { required } = useValidator();
 
@@ -79,31 +80,13 @@ const schema = reactive<FormSchema[]>([
       span: 24,
     },
   },
-  // {
-  //   field: "other",
-  //   component: "Divider",
-  //   label: "otherLogin",
-  //   componentProps: {
-  //     contentPosition: "center",
-  //   },
-  // },
-  // {
-  //   field: "otherIcon",
-  //   colProps: {
-  //     span: 24,
-  //   },
-  // },
 ]);
-
-const iconSize = 30;
 
 const remember = ref(false);
 
 const { register, elFormRef, methods } = useForm();
 
 const loading = ref(false);
-
-const iconColor = "#999";
 
 const redirect = ref<string>("");
 
@@ -127,15 +110,18 @@ const signIn = async () => {
       const formData = await getFormData<UserType>();
 
       try {
-        const res = await loginApi(formData);
+        const res = await loginApi(formData); // 登录接口
 
+        console.log("login-res", res);
         if (res) {
-          wsCache.set(appStore.getUserInfo, res.data);
+          wsCache.set(appStore.getUserInfo, res.data); // TODO:
           // 是否使用动态路由
           if (appStore.getDynamicRouter) {
             getRole();
           } else {
-            await permissionStore.generateRoutes("none").catch(() => {});
+            await permissionStore.generateRoutes("none").catch((err) => {
+              console.log("err", err);
+            });
             permissionStore.getAddRouters.forEach((route) => {
               addRoute(route as RouteRecordRaw); // 动态添加可访问路由表
             });

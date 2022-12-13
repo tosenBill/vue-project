@@ -24,7 +24,7 @@ export const constantRouterMap = [
   {
     path: "/login",
     component: () => import("../views/Login/LoginPage.vue"),
-    name: "login",
+    name: "Login",
     meta: {
       hidden: true,
       // title: t("router.login"),
@@ -46,6 +46,28 @@ export const constantRouterMap = [
 ];
 
 export const asyncRouterMap = [
+  {
+    path: "/home",
+    component: Layout,
+    redirect: "/home/index",
+    name: "Home",
+    meta: {
+      title: "首页",
+    },
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/Home/home.vue"),
+        name: "homePage",
+        meta: {
+          // hidden: true,
+          // title: t("router.login"),
+          title: "首页",
+          noTagsView: true,
+        },
+      },
+    ],
+  },
   {
     path: "/dashboard",
     component: Layout,
@@ -82,27 +104,6 @@ export const asyncRouterMap = [
         meta: {
           title: "关于",
           icon: "cib:telegram-plane",
-        },
-      },
-    ],
-  },
-  {
-    path: "/home",
-    component: Layout,
-    name: "home",
-    meta: {
-      title: "首页1",
-    },
-    children: [
-      {
-        path: "index",
-        component: () => import("@/views/Home/home.vue"),
-        name: "homePage",
-        meta: {
-          // hidden: true,
-          // title: t("router.login"),
-          title: "首页",
-          noTagsView: true,
         },
       },
     ],
@@ -208,6 +209,16 @@ const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: constantRouterMap,
 });
+
+export const resetRouter = (): void => {
+  const resetWhiteNameList = ["Redirect", "Login", "NoFind", "Root"];
+  router.getRoutes().forEach((route) => {
+    const { name } = route;
+    if (name && !resetWhiteNameList.includes(name as string)) {
+      router.hasRoute(name) && router.removeRoute(name);
+    }
+  });
+};
 
 export const setupRouter = (app: App<Element>) => {
   app.use(router);
