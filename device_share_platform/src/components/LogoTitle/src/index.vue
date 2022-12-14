@@ -5,11 +5,13 @@ const props = withDefaults(
     width?: string;
     height?: string;
     fontSize?: string | number;
+    fontWeight?: string | number;
   }>(),
   {
     width: "53px",
     height: "47px",
     fontSize: "18px",
+    fontWeight: 500,
   }
 );
 </script>
@@ -21,7 +23,9 @@ const props = withDefaults(
       :style="{ width: props.width, height: props.height }"
       alt=""
     />
-    <span :style="{ fontSize: props.fontSize }">工程建设设备共享管理平台</span>
+    <span :style="{ fontSize: props.fontSize, fontWeight: props.fontWeight }"
+      >工程建设设备共享管理平台</span
+    >
   </div>
 </template>
 
@@ -34,7 +38,7 @@ const props = withDefaults(
   }
   > span {
     color: #999;
-    font-weight: 500;
+    // font-weight: 500;
   }
 }
 </style>

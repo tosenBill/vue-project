@@ -5,46 +5,30 @@ import { Logo } from "@/components/LogoTitle";
 import { ElButton } from "element-plus";
 import { usePermissionStore } from "@/store/modules/permission";
 import { useRouter } from "vue-router";
+import { MunuRouter } from "./useRenderMenuItem";
 
 const { addRouters } = usePermissionStore();
 const { push } = useRouter();
 
-const munuList = [
-  {
-    title: "首页",
-  },
-  {
-    title: "租赁",
-  },
-  {
-    title: "维修",
-  },
-  {
-    title: "设备管理",
-  },
-  {
-    title: "工作中心",
-  },
-];
-
-console.log("permissionStore.addRouters", addRouters[0]);
-
-const list = computed(() => {
-  return addRouters.filter((router) => router?.meta?.alwaysShow);
-});
+const routerList = MunuRouter(addRouters);
 
 const state = reactive({ isMouseEnter: false, category: {} });
 const enter = (item: any) => {
-  console.log(item);
-  // state.isMouseEnter = true;
   state.category = item;
 };
 const leave = () => {
   state.isMouseEnter = false;
 };
-const childMenuClick = (parent, menuItem) => {
-  console.log(parent.path, menuItem.path);
-  push(parent.path + "/" + menuItem.path);
+const menuClick = (current: AppRouteRecordRaw, parent: AppRouteRecordRaw) => {
+  const { path, meta = {} } = current;
+  // 是否是一级导航
+  if (current.children !== undefined) {
+    if (meta?.hideChild) {
+      push(current.fullPath!);
+    }
+  } else {
+    push(`${parent.path}/${path}`);
+  }
 };
 </script>
 
@@ -57,22 +41,30 @@ const childMenuClick = (parent, menuItem) => {
           <div class="menu">
             <div class="content">
               <div
-                v-for="(item, index) in list"
+                v-for="(item, index) in routerList"
                 :key="index"
                 @mouseenter="enter(item)"
                 @mouseleave="leave()"
                 class="item"
               >
-                <span>{{ item.meta.title }}</span>
-                <div :class="['translate-drawer']">
+                <span @click="menuClick(item, {})">{{ item.meta?.title }}</span>
+                <!-- 弹出二级路由层 start -->
+                <div
+                  :class="['translate-drawer']"
+                  :style="{
+                    display: item.meta.hideChild ? 'none' : '',
+                  }"
+                >
                   <div
                     v-for="(child, cindex) in item.children"
                     :key="cindex"
-                    @click="childMenuClick(item, child)"
+                    @click="menuClick(child, item)"
+                    class="sub-menu"
                   >
                     {{ child?.meta?.title || "--" }}
                   </div>
                 </div>
+                <!-- 弹出二级路由层 end -->
               </div>
             </div>
           </div>
@@ -135,6 +127,15 @@ const childMenuClick = (parent, menuItem) => {
     z-index: -1;
     transition: transform 0.3s;
     transform: translateY(0);
+    .sub-menu {
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+      &:hover {
+        cursor: pointer;
+        color: @active-word-color;
+      }
+    }
     &.inter {
       // transform: translateY(100%);
     }
@@ -159,8 +160,8 @@ const childMenuClick = (parent, menuItem) => {
         align-items: center;
         &:hover {
           span {
-            color: rgb(22, 155, 213);
-            border-bottom-color: rgb(22, 155, 213);
+            color: @active-word-color;
+            border-bottom-color: @active-word-color;
           }
           .translate-drawer {
             transform: translateY(100%);

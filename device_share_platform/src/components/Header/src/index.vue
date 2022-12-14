@@ -5,13 +5,17 @@ import { useRouter } from "vue-router";
 import { ElInput, ElMessageBox } from "element-plus";
 import MyMenu from "./Menu.vue";
 import { useCache } from "@/hooks/web/useCache";
+import { useAppStore } from "@/store/modules/app";
 import { resetRouter } from "@/router";
 
 const valueRef = ref("");
 
+const appStore = useAppStore();
 const { wsCache } = useCache();
 
 const { replace } = useRouter();
+
+const userInfo = wsCache.get(appStore.getUserInfo);
 
 const loginOut = () => {
   ElMessageBox.confirm("是否退出本系统", "温馨提示", {
@@ -55,11 +59,15 @@ const loginOut = () => {
         </div>
       </div>
       <div class="right">
-        <span>请您登录</span>
         <span>领导角色登入</span>
         <span>共享中心角色登入</span>
         <span>在线客服</span>
-        <span style="color: red" @click="loginOut">退出</span>
+
+        <span v-if="userInfo && userInfo.username" class="user-info">
+          <span>{{ userInfo.username }}·</span>
+          <span style="color: @active-word-color" @click="loginOut">退出</span>
+        </span>
+        <span v-else>请您登录</span>
       </div>
     </div>
     <MyMenu></MyMenu>
@@ -103,7 +111,10 @@ const loginOut = () => {
   .right {
     .flex_font();
     color: rgb(204, 204, 204);
-    span {
+    .user-info {
+      color: @active-word-color;
+    }
+    > span {
       &:not(:last-child)::after {
         content: "|";
         display: inline-block;

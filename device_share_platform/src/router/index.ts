@@ -3,7 +3,6 @@ import {
   createWebHistory,
   createWebHashHistory,
 } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 // import { Layout } from "@/utils/routerHelper";
 // import Layout from "../layout/Layout.vue";
 const Layout = () => import("@/layout/Layout.vue");
@@ -50,11 +49,12 @@ export const asyncRouterMap = [
   {
     path: "/home",
     component: Layout,
-    // redirect: "/home/index",
+    redirect: "/home/index",
     name: "Home",
     meta: {
       title: "首页",
       alwaysShow: true,
+      hideChild: true,
     },
     children: [
       {
@@ -114,17 +114,17 @@ export const asyncRouterMap = [
       alwaysShow: true,
     },
     children: [
-      // {
-      //   path: "index",
-      //   component: () => import("@/views/Home/home.vue"),
-      //   name: "repairPage",
-      //   meta: {
-      //     // hidden: true,
-      //     // title: t("router.login"),
-      //     title: "首页",
-      //     noTagsView: true,
-      //   },
-      // },
+      {
+        path: "RepairDevice",
+        component: () => import("@/views/Repair/RepairDevice.vue"),
+        name: "RepairDevice",
+        meta: {
+          // hidden: true,
+          // title: t("router.login"),
+          title: "维修设备",
+          noTagsView: true,
+        },
+      },
     ],
   },
   {
@@ -136,6 +136,7 @@ export const asyncRouterMap = [
       title: "面板",
       icon: "ant-design:dashboard-filled",
       alwaysShow: false,
+      hidden: true,
     },
     children: [
       {
@@ -151,25 +152,6 @@ export const asyncRouterMap = [
     ],
   },
   {
-    path: "/about",
-    component: Layout,
-    name: "about",
-    meta: {
-      alwaysShow: false,
-    },
-    children: [
-      {
-        path: "aboutPage",
-        component: () => import("../views/AboutView.vue"),
-        name: "aboutDemo",
-        meta: {
-          title: "关于",
-          icon: "cib:telegram-plane",
-        },
-      },
-    ],
-  },
-  {
     path: "/deviceManage",
     component: Layout,
     name: "DeviceManage",
@@ -177,6 +159,7 @@ export const asyncRouterMap = [
     meta: {
       title: "设备管理",
       alwaysShow: true,
+      hideChild: true,
     },
     children: [
       {

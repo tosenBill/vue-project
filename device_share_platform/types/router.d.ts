@@ -1,5 +1,5 @@
-import type { RouteRecordRaw } from 'vue-router'
-import { defineComponent } from 'vue'
+import type { RouteRecordRaw } from "vue-router";
+import { defineComponent } from "vue";
 
 /**
 * redirect: noredirect        当设置 noredirect 的时候该路由在面包屑导航中不可被点击
@@ -32,43 +32,44 @@ import { defineComponent } from 'vue'
     canTo: true               设置为true即使hidden为true，也依然可以进行路由跳转(默认 false)
   }
 **/
-declare module 'vue-router' {
+declare module "vue-router" {
   interface RouteMeta extends Record<string | number | symbol, unknown> {
-    hidden?: boolean
-    alwaysShow?: boolean
-    title?: string
-    icon?: string
-    noCache?: boolean
-    breadcrumb?: boolean
-    affix?: boolean
-    activeMenu?: string
-    noTagsView?: boolean
-    followAuth?: string
-    canTo?: boolean
+    hidden?: boolean;
+    alwaysShow?: boolean;
+    title?: string;
+    icon?: string;
+    noCache?: boolean;
+    breadcrumb?: boolean;
+    affix?: boolean;
+    activeMenu?: string;
+    noTagsView?: boolean;
+    followAuth?: string;
+    canTo?: boolean;
   }
 }
 
 type Component<T = any> =
   | ReturnType<typeof defineComponent>
-  | (() => Promise<typeof import('*.vue')>)
-  | (() => Promise<T>)
+  | (() => Promise<typeof import("*.vue")>)
+  | (() => Promise<T>);
 
 declare global {
-  declare interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
-    name: string
-    meta: RouteMeta
-    component?: Component | string
-    children?: AppRouteRecordRaw[]
-    props?: Recordable
-    fullPath?: string
+  declare interface AppRouteRecordRaw extends Omit<RouteRecordRaw, "meta"> {
+    name: string;
+    meta: RouteMeta;
+    component?: Component | string;
+    children?: AppRouteRecordRaw[];
+    props?: Recordable;
+    fullPath?: string;
   }
 
-  declare interface AppCustomRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
-    name: string
-    meta: RouteMeta
-    component: string
-    path: string
-    redirect: string
-    children?: AppCustomRouteRecordRaw[]
+  declare interface AppCustomRouteRecordRaw
+    extends Omit<RouteRecordRaw, "meta"> {
+    name: string;
+    meta: RouteMeta;
+    component: string;
+    path: string;
+    redirect: string;
+    children?: AppCustomRouteRecordRaw[];
   }
 }

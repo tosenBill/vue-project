@@ -3,8 +3,12 @@ import { Header, Footer } from "./components";
 import { ref, watch } from "vue";
 // import { ContentWrap } from '@/components/ContentWrap'
 // import { useIntro } from '@/hooks/web/useIntro'
+import { useRouter } from "vue-router";
+import { Logo } from "@/components/LogoTitle";
 import { ElInput, ElMessage } from "element-plus";
 import { isLogin } from "@/utils/validate";
+
+const router = useRouter();
 
 // const { introRef } = useIntro();
 
@@ -17,6 +21,10 @@ const searchHandle = () => {
   if (!isLogin()) {
     ElMessage.warning("请先登录~");
   }
+};
+
+const logoClick = () => {
+  router.push("/home/index");
 };
 // 监听
 watch(
@@ -32,10 +40,12 @@ watch(
     <Header></Header>
     <section class="section">
       <div class="title-search">
-        <div class="title">
-          <img src="@/assets/imgs/logo.png" alt="" />
-          <span>工程建设设备共享管理平台</span>
-        </div>
+        <Logo
+          :fontSize="'18px'"
+          :fontWeight="'normal'"
+          @click="logoClick"
+          class="logo-comps"
+        />
         <div class="search">
           <ElInput v-model="valueRef" type="text">
             <template #prefix>
@@ -77,6 +87,9 @@ watch(
 .welcome-container {
   .section {
     padding: 0 20px;
+    .logo-comps {
+      cursor: pointer;
+    }
     .title-search {
       display: flex;
       align-items: center;
