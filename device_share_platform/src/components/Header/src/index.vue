@@ -65,7 +65,7 @@ const loginOut = () => {
 
         <span v-if="userInfo && userInfo.username" class="user-info">
           <span>{{ userInfo.username }}·</span>
-          <span style="color: @active-word-color" @click="loginOut">退出</span>
+          <span @click="loginOut">退出</span>
         </span>
         <span v-else>请您登录</span>
       </div>

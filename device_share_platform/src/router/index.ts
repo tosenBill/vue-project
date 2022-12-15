@@ -159,15 +159,32 @@ export const asyncRouterMap = [
     meta: {
       title: "设备管理",
       alwaysShow: true,
-      hideChild: true,
     },
     children: [
+      // {
+      //   path: "index",
+      //   component: () => import("@/views/DeviceManage/index.vue"),
+      //   name: "deviceManageIndex",
+      //   meta: {
+      //     title: "设备",
+      //     noTagsView: true,
+      //   },
+      // },
       {
-        path: "index",
-        component: () => import("@/views/DeviceManage/index.vue"),
-        name: "deviceManageIndex",
+        path: "publishDevice",
+        component: () => import("@/views/DeviceManage/PublishDevice.vue"),
+        name: "PublishDevice",
         meta: {
-          title: "设备",
+          title: "发布设备",
+          noTagsView: true,
+        },
+      },
+      {
+        path: "publishRequest",
+        component: () => import("@/views/DeviceManage/PublishRequest.vue"),
+        name: "PublishRequest",
+        meta: {
+          title: "发布需求",
           noTagsView: true,
         },
       },

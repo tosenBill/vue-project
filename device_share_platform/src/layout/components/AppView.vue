@@ -59,13 +59,22 @@ const svg = `
       },
     ]"
   >
-    <router-view>
-      <template #default="{ Component, route }">
-        <keep-alive :include="getCaches">
-          <component :is="Component" />
-        </keep-alive>
-      </template>
-    </router-view>
+    <div class="layout-router-view">
+      <router-view>
+        <template #default="{ Component, route }">
+          <keep-alive :include="getCaches">
+            <component :is="Component" />
+          </keep-alive>
+        </template>
+      </router-view>
+    </div>
   </section>
   <Footer2 v-if="footer" />
 </template>
+
+<style lang="less">
+.layout-router-view {
+  width: @container-width_inner;
+  margin: 0 auto;
+}
+</style>

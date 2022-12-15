@@ -30,6 +30,9 @@ const menuClick = (current: AppRouteRecordRaw, parent: AppRouteRecordRaw) => {
     push(`${parent.path}/${path}`);
   }
 };
+const publish = (router) => {
+  push(`/deviceManage${router}`);
+};
 </script>
 
 <template>
@@ -69,8 +72,12 @@ const menuClick = (current: AppRouteRecordRaw, parent: AppRouteRecordRaw) => {
             </div>
           </div>
           <div class="publish">
-            <ElButton type="primary">发布设备</ElButton>
-            <ElButton type="primary">发布需求</ElButton>
+            <ElButton type="primary" @click="publish('/publishDevice')"
+              >发布设备</ElButton
+            >
+            <ElButton type="primary" @click="publish('/publishRequest')"
+              >发布需求</ElButton
+            >
           </div>
         </div>
       </div>
