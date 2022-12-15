@@ -632,6 +632,7 @@ const schema = reactive<FormSchema[]>([
   .submit-btn {
     display: flex;
     justify-content: center;
+    width: 100%;
   }
 }
 </style>
