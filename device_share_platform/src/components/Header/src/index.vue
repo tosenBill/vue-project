@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
-import { ElInput, ElMessageBox } from "element-plus";
+import { ElInput, ElMessageBox, ElBadge } from "element-plus";
 import MyMenu from "./Menu.vue";
 import { useCache } from "@/hooks/web/useCache";
 import { useAppStore } from "@/store/modules/app";
@@ -68,6 +68,9 @@ const loginOut = () => {
           <span @click="loginOut">退出</span>
         </span>
         <span v-else>请您登录</span>
+        <ElBadge :value="200" :max="99" class="item">
+          <span>通知公告</span>
+        </ElBadge>
       </div>
     </div>
     <MyMenu></MyMenu>
