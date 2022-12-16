@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useTagsViewStore } from "@/store/modules/tagsView";
 import { useAppStoreWithOut } from "@/store/modules/app";
-import { Footer, Footer2 } from "@/components/Footer";
+import { Footer, DownloadApp } from "@/components/Footer";
 import { computed } from "vue";
 
 const appStore = useAppStoreWithOut();
@@ -69,7 +69,8 @@ const svg = `
       </router-view>
     </div>
   </section>
-  <Footer2 v-if="footer" />
+  <DownloadApp />
+  <Footer v-if="footer" />
 </template>
 
 <style lang="less">

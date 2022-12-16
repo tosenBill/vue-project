@@ -1,4 +1,5 @@
 import Footer from "./src/Footer.vue";
-import Footer2 from "./src/copyright.vue";
+import DownloadApp from "./src/DownloadApp.vue";
+// import Footer2 from "./src/copyright.vue";
 
-export { Footer, Footer2 };
+export { Footer, DownloadApp };
