@@ -119,8 +119,9 @@ const schema = reactive<FormSchema[]>([
     },
     componentProps: {
       placeholder: "请输入设备名称",
+      class: "input-custome-class",
       inputStyle: {
-        width: "200px",
+        // width: "200px",
       },
     },
   },
@@ -139,8 +140,9 @@ const schema = reactive<FormSchema[]>([
     },
     componentProps: {
       placeholder: "请输入设备编号",
+      class: "input-custome-class",
       inputStyle: {
-        width: "200px",
+        // width: "200px",
       },
     },
   },
@@ -159,8 +161,9 @@ const schema = reactive<FormSchema[]>([
     },
     componentProps: {
       placeholder: "请输入设备型号",
+      class: "input-custome-class",
       inputStyle: {
-        width: "200px",
+        // width: "200px",
       },
     },
   },
@@ -197,8 +200,9 @@ const schema = reactive<FormSchema[]>([
     },
     componentProps: {
       placeholder: "请输入设备类型",
+      class: "input-custome-class",
       inputStyle: {
-        width: "200px",
+        // width: "200px",
       },
     },
   },
@@ -217,8 +221,9 @@ const schema = reactive<FormSchema[]>([
     },
     componentProps: {
       placeholder: "请输入所在项目",
+      class: "input-custome-class",
       inputStyle: {
-        width: "200px",
+        // width: "200px",
       },
     },
   },
@@ -264,8 +269,9 @@ const schema = reactive<FormSchema[]>([
     },
     componentProps: {
       placeholder: "请输入主要性能",
+      class: "input-custome-class",
       inputStyle: {
-        width: "200px",
+        // width: "200px",
       },
     },
   },
@@ -293,8 +299,9 @@ const schema = reactive<FormSchema[]>([
       type: "number",
       clearable: false,
       // type: 'textarea',
+      class: "input-custome-class",
       inputStyle: {
-        width: "200px",
+        // width: "200px",
       },
     },
   },
@@ -317,8 +324,9 @@ const schema = reactive<FormSchema[]>([
       type: "number",
       clearable: false,
       // type: 'textarea',
+      class: "input-custome-class",
       inputStyle: {
-        width: "200px",
+        // width: "200px",
       },
     },
   },
@@ -341,8 +349,9 @@ const schema = reactive<FormSchema[]>([
       type: "number",
       clearable: false,
       // type: 'textarea',
+      class: "input-custome-class",
       inputStyle: {
-        width: "200px",
+        // width: "200px",
       },
     },
   },
@@ -365,8 +374,9 @@ const schema = reactive<FormSchema[]>([
       type: "number",
       clearable: false,
       // type: 'textarea',
+      class: "input-custome-class",
       inputStyle: {
-        width: "200px",
+        // width: "200px",
       },
     },
   },
@@ -389,8 +399,9 @@ const schema = reactive<FormSchema[]>([
       type: "number",
       clearable: false,
       // type: 'textarea',
+      class: "input-custome-class",
       inputStyle: {
-        width: "200px",
+        // width: "200px",
       },
     },
   },
@@ -413,8 +424,9 @@ const schema = reactive<FormSchema[]>([
       type: "number",
       clearable: false,
       // type: 'textarea',
+      class: "input-custome-class",
       inputStyle: {
-        width: "200px",
+        // width: "200px",
       },
     },
   },
@@ -480,7 +492,7 @@ const schema = reactive<FormSchema[]>([
     component: "Input",
     label: "其它性能参数:",
     colProps: {
-      span: 18,
+      span: 19,
     },
     formItemProps: {
       // rules: [required()],
@@ -513,7 +525,7 @@ const schema = reactive<FormSchema[]>([
     component: "Input",
     label: "详细信息:",
     colProps: {
-      span: 18,
+      span: 19,
     },
     formItemProps: {
       // rules: [required()],
@@ -614,13 +626,18 @@ const schema = reactive<FormSchema[]>([
   .my-devider {
     background: #fff;
   }
+  :deep(.input-custome-class) {
+    // .el-input__wrapper {
+    width: 300px;
+    // }
+  }
   :deep(.province-cascader) {
-    width: 222px;
+    width: 300px;
   }
   :deep(.device-date-picker_custom) {
     // width: 300px;
     .el-input__wrapper {
-      width: 222px;
+      width: 300px;
     }
   }
   .title {
