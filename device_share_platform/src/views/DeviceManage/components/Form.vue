@@ -7,7 +7,6 @@ import {
   useSlots,
   defineExpose,
   defineComponent,
-  defineEmits,
   onMounted,
 } from "vue";
 // import type { PropType } from "vue";

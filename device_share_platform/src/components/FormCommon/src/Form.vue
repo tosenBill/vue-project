@@ -7,9 +7,7 @@ import {
   useSlots,
   defineExpose,
   defineComponent,
-  defineEmits,
   onMounted,
-  useAttrs,
 } from "vue";
 // import type { PropType } from "vue";
 import { useDesign } from "@/hooks/web/useDesign";
