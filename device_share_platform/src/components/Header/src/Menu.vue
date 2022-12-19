@@ -50,7 +50,9 @@ const publish = (router) => {
                 @mouseleave="leave()"
                 class="item"
               >
-                <span @click="menuClick(item, {})">{{ item.meta?.title }}</span>
+                <span class="first-level" @click="menuClick(item, {})">{{
+                  item.meta?.title
+                }}</span>
                 <!-- 弹出二级路由层 start -->
                 <div
                   :class="['translate-drawer']"
@@ -64,7 +66,9 @@ const publish = (router) => {
                     @click="menuClick(child, item)"
                     class="sub-menu"
                   >
-                    {{ child?.meta?.title || "--" }}
+                    <span class="child-span" v-if="!child?.meta?.hidden">{{
+                      child?.meta?.title || "--"
+                    }}</span>
                   </div>
                 </div>
                 <!-- 弹出二级路由层 end -->
@@ -146,6 +150,11 @@ const publish = (router) => {
     &.inter {
       // transform: translateY(100%);
     }
+    .child-span {
+      &:hover {
+        color: @active-word-color;
+      }
+    }
   }
 
   .menu {
@@ -166,7 +175,7 @@ const publish = (router) => {
         justify-content: center;
         align-items: center;
         &:hover {
-          span {
+          span.first-level {
             color: @active-word-color;
             border-bottom-color: @active-word-color;
           }

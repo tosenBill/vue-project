@@ -194,8 +194,11 @@ const toRegister = () => {
 
     <template #tool>
       <div class="flex justify-between items-center w-[100%]">
-        <ElCheckbox v-model="remember" label="记住" size="small" />
-        <ElLink type="primary" :underline="false">忘记密码</ElLink>
+        <div class="flex items-center">
+          <ElLink type="primary" :underline="false">忘记密码</ElLink>
+          <span class="msg-login-btn">短信验证码登录</span>
+        </div>
+        <ElCheckbox v-model="remember" label="同意用户协议" size="small" />
       </div>
     </template>
 
@@ -218,6 +221,11 @@ const toRegister = () => {
 </template>
 
 <style lang="less" scoped>
+.msg-login-btn {
+  margin-left: 15px;
+  color: var(--el-color-primary);
+  cursor: pointer;
+}
 :deep(.anticon) {
   &:hover {
     color: var(--el-color-primary) !important;
