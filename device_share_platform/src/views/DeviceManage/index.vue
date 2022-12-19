@@ -2,6 +2,7 @@
 import { ref, reactive } from "vue";
 import { ContentWrap } from "@/components/ContentWrap";
 import areaLists from "@/utils/area.json";
+import ProdItem from "./components/ProdItem.vue";
 
 import {
   ElRadioGroup,
@@ -11,6 +12,7 @@ import {
   ElButton,
   ElCascader,
   ElCheckbox,
+  ElPagination,
 } from "element-plus";
 
 const companyList = ref([
@@ -58,6 +60,7 @@ const sortList = ref([
   { label: "价格", value: "4" },
   { label: "信用", value: "5" },
 ]);
+const prodList = ref(new Array(6));
 const filterRef = ref({
   type: "2",
   company: "2",
@@ -179,6 +182,18 @@ const cascaderClear = () => {
         </div>
       </div>
     </div>
+    <div class="product-container">
+      <div class="list">
+        <ProdItem :list="prodList" />
+      </div>
+      <div class="paginate">
+        <ElPagination
+          :total="prodList.length"
+          :page-size="4"
+          layout="prev, pager, next"
+        />
+      </div>
+    </div>
   </ContentWrap>
 </template>
 
@@ -211,6 +226,15 @@ const cascaderClear = () => {
         display: flex;
         align-items: center;
       }
+    }
+  }
+  .product-container {
+    .list {
+      margin: 20px 0;
+    }
+    .paginate {
+      display: flex;
+      justify-content: center;
     }
   }
 }
