@@ -3,6 +3,7 @@ import { ref, reactive } from "vue";
 import { ContentWrap } from "@/components/ContentWrap";
 import areaLists from "@/utils/area.json";
 import ProdItem from "./components/ProdItem.vue";
+import { useRouter } from "vue-router";
 
 import {
   ElRadioGroup,
@@ -13,7 +14,11 @@ import {
   ElCascader,
   ElCheckbox,
   ElPagination,
+  ElRow,
+  ElCol,
 } from "element-plus";
+
+const { push } = useRouter();
 
 const companyList = ref([
   { label: "不限", value: "0" },
@@ -60,7 +65,16 @@ const sortList = ref([
   { label: "价格", value: "4" },
   { label: "信用", value: "5" },
 ]);
-const prodList = ref(new Array(6));
+const currentPage = ref(2);
+const prodList = ref([
+  { id: 1 },
+  { id: 2 },
+  { id: 3 },
+  { id: 4 },
+  { id: 5 },
+  { id: 6 },
+  { id: 7 },
+]);
 const filterRef = ref({
   type: "2",
   company: "2",
@@ -83,8 +97,20 @@ const cascaderChange = (cur: any) => {
   // });
   // console.log("cascaderChange-cur", cur, labelList);
 };
+const prodItemClick = (item) => {
+  console.log(item);
+  push({
+    name: `ProductDetail`,
+    params: {
+      id: item.id,
+    },
+  });
+};
 const cascaderClear = () => {
   console.log("清楚了");
+};
+const currentChangeHandle = (val: number) => {
+  console.log("currentChangeHandle", val);
 };
 </script>
 
@@ -184,13 +210,26 @@ const cascaderClear = () => {
     </div>
     <div class="product-container">
       <div class="list">
-        <ProdItem :list="prodList" />
+        <ElRow class="prod-item" :gutter="50">
+          <ElCol
+            :span="6"
+            class="item-col"
+            v-for="(item, index) in prodList"
+            :key="index"
+            @click="prodItemClick(item)"
+          >
+            <ProdItem :prodItem="item" />
+          </ElCol>
+        </ElRow>
       </div>
       <div class="paginate">
         <ElPagination
+          v-model:current-page="currentPage"
           :total="prodList.length"
-          :page-size="4"
+          :page-size="2"
           layout="prev, pager, next"
+          background
+          @current-change="currentChangeHandle"
         />
       </div>
     </div>
@@ -231,6 +270,11 @@ const cascaderClear = () => {
   .product-container {
     .list {
       margin: 20px 0;
+      .prod-item {
+        .item-col {
+          margin-bottom: 15px;
+        }
+      }
     }
     .paginate {
       display: flex;
