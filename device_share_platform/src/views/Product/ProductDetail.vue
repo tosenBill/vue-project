@@ -1,8 +1,30 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import { useRoute } from "vue-router";
 import { ElButton } from "element-plus";
+import Detail from "./components/Detail.vue";
+import Comment from "./components/Comment.vue";
+import Plan from "./components/Plan.vue";
+import Nearby from "./components/Nearby.vue";
 const route = useRoute();
+const tabsList = [
+  { title: "设备详情", desc: "detail" },
+  { title: "设备评价", desc: "comment" },
+  { title: "使用计划", desc: "plan" },
+];
+const curTab = ref(tabsList[0].desc);
+const tabClickHandle = (tab) => {
+  curTab.value = tab.desc;
+};
+const curComp = computed(() => {
+  if (curTab.value === "detail") {
+    return Detail;
+  } else if (curTab.value === "comment") {
+    return Comment;
+  } else {
+    return Plan;
+  }
+});
 console.log("当前route参数为：", route.params);
 </script>
 
@@ -20,7 +42,9 @@ console.log("当前route参数为：", route.params);
         </div>
       </div>
       <div class="info">
-        <div class="h2">吉林省吉林市出租履带车（设备编号:AB00001）</div>
+        <div class="h2">
+          吉林省吉林市出租履带车（设备编号:{{ route.params.id }}）
+        </div>
         <div class="price-btn">
           <div class="price">月租金：<span>￥28900元/月</span></div>
           <div class="btns">
@@ -56,6 +80,24 @@ console.log("当前route参数为：", route.params);
         </div>
       </div>
     </div>
+    <div class="detail">
+      <div class="tabs">
+        <div
+          v-for="tab in tabsList"
+          :key="tab.desc"
+          :class="[curTab === tab.desc && 'active', 'tab']"
+          @click="tabClickHandle(tab)"
+        >
+          {{ tab.title }}<i></i>
+        </div>
+      </div>
+
+      <component :is="curComp" />
+    </div>
+  </div>
+  <div class="nearby">
+    <div class="title">附近设备</div>
+    <Nearby />
   </div>
 </template>
 
@@ -69,7 +111,7 @@ console.log("当前route参数为：", route.params);
       display: flex;
       > img {
         width: 430px;
-        min-height: 200px;
+        min-height: 440px;
         border: 2px solid transparent;
       }
     }
@@ -134,6 +176,54 @@ console.log("当前route参数为：", route.params);
         }
       }
     }
+  }
+  .tabs {
+    background-color: rgba(245, 245, 245, 1);
+    display: flex;
+    margin-top: 10px;
+    .tab {
+      width: 150px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: rgba(249, 249, 249, 1);
+      border: 1px solid rgba(228, 228, 228, 1);
+      display: flex;
+      margin-top: 10px;
+      cursor: pointer;
+      &:nth-child(2) {
+        border-left: none;
+        border-right: none;
+      }
+      i {
+        display: inline-block;
+        width: 100%;
+        height: 5px;
+        position: absolute;
+        background: transparent;
+        top: 0;
+      }
+      &.active {
+        background: #fff;
+        i {
+          background: @text-blue;
+        }
+      }
+    }
+  }
+}
+.nearby {
+  .title {
+    height: 50px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(238, 238, 238, 1);
+    background: #fff;
+    margin-top: 10px;
+    padding-left: 10px;
   }
 }
 </style>

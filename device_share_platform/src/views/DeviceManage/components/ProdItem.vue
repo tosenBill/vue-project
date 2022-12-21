@@ -5,9 +5,12 @@ const props = withDefaults(
   defineProps<{
     // 生成Form的布局结构数组
     prodItem: any;
+    // card 显示的模式，
+    type?: number;
   }>(),
   {
     prodItem: {},
+    type: 1,
   }
 );
 </script>
@@ -19,13 +22,13 @@ const props = withDefaults(
       class="image"
     />
     <div class="prod-info">
-      <div class="name">SANY485-H履带式挖掘机</div>
-      <div class="info">
+      <div class="name">SANY485-H履带式挖掘机--{{ prodItem.id }}</div>
+      <div class="info" v-if="type == 1">
         <span>操作重量：49吨</span>
         <span>铲斗容量：2.2立方米</span>
       </div>
       <div class="price">￥8888</div>
-      <div class="operate-btn">
+      <div class="operate-btn" v-if="type == 1">
         <ElButton type="primary" size="small">租赁</ElButton>
         <ElButton type="danger" size="small">预约</ElButton>
       </div>
