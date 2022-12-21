@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, reactive, watch, onMounted } from "vue";
 import { ContentWrap } from "@/components/ContentWrap";
 import areaLists from "@/utils/area.json";
 import ProdItem from "./components/ProdItem.vue";
@@ -53,13 +53,13 @@ const rentList = ref([
   { label: "10万元以上", id: "5" },
 ]);
 const statusList = ref([
-  { label: "不限", value: "1" },
+  { label: "不限", value: "0" },
   { label: "在用", value: "2" },
   { label: "闲置", value: "3" },
-  { label: "在修", value: "3" },
+  { label: "在修", value: "4" },
 ]);
 const sortList = ref([
-  { label: "默认排序", value: "1" },
+  { label: "默认排序", value: "0" },
   { label: "发布时间", value: "2" },
   { label: "距离", value: "3" },
   { label: "价格", value: "4" },
@@ -75,14 +75,15 @@ const prodList = ref([
   { id: 6 },
   { id: 7 },
 ]);
-const filterRef = ref({
+const filterRef = reactive({
   type: "2",
   company: "2",
   firm: "1",
   rent: "", // 租金区间：
   provice: "",
-  status: "",
-  sort: "",
+  status: "0",
+  sort: "0",
+  waitDevice: "0", // 显示待租设备
 });
 // 省市区
 const cascaderRef = ref(null);
@@ -106,6 +107,19 @@ const prodItemClick = (item) => {
     },
   });
 };
+watch(filterRef, (val) => {
+  console.log("filterRef表单变化了", val);
+});
+onMounted(() => {
+  console.log("进入了商品列表页，加载列表...");
+});
+// 设备类型change
+const typeClick = (val: string, key: string) => {
+  console.log("key", key);
+  filterRef[key] = filterRef[key] === val ? "" : val;
+
+  console.log(filterRef.type);
+};
 const cascaderClear = () => {
   console.log("清楚了");
 };
@@ -122,6 +136,7 @@ const currentChangeHandle = (val: number) => {
         <div class="label">设备类型：</div>
         <ElRadioGroup v-model="filterRef.type">
           <ElRadio
+            @click.prevent="typeClick(radio.value, 'type')"
             :label="radio.value"
             v-for="(radio, i) in radioList"
             :key="i"
@@ -135,6 +150,7 @@ const currentChangeHandle = (val: number) => {
         <div class="label">所属企业：</div>
         <ElRadioGroup v-model="filterRef.company">
           <ElRadio
+            @click.prevent="typeClick(radio.value, 'company')"
             :label="radio.value"
             v-for="(radio, i) in companyList"
             :key="i"
@@ -148,6 +164,7 @@ const currentChangeHandle = (val: number) => {
         <ElRadioGroup v-model="filterRef.firm">
           <ElRadio
             :label="radio.value"
+            @click.prevent="typeClick(radio.value, 'firm')"
             v-for="(radio, i) in firmList"
             :key="i"
             >{{ radio.label }}</ElRadio
@@ -157,9 +174,15 @@ const currentChangeHandle = (val: number) => {
       <ElDivider style="margin: 10px 0" />
       <div class="item">
         <div class="label">租金区间：</div>
-        <ElButton v-for="rent in rentList" :key="rent.id" size="small">{{
-          rent.label
-        }}</ElButton>
+        <ElButton
+          v-for="rent in rentList"
+          :key="rent.id"
+          size="small"
+          :type="filterRef.rent === rent.id ? 'primary' : ''"
+          @click.prevent="typeClick(rent.id, 'rent')"
+          plain
+          >{{ rent.label }}</ElButton
+        >
         <!-- <div class="rent-item" ></div> -->
       </div>
       <ElDivider style="margin: 10px 0" />
@@ -183,6 +206,7 @@ const currentChangeHandle = (val: number) => {
         <ElRadioGroup v-model="filterRef.status">
           <ElRadio
             :label="radio.value"
+            @click.prevent="typeClick(radio.value, 'status')"
             v-for="(radio, i) in statusList"
             :key="i"
             >{{ radio.label }}</ElRadio
@@ -199,11 +223,18 @@ const currentChangeHandle = (val: number) => {
             <ElRadioButton
               :label="radio.value"
               v-for="(radio, i) in sortList"
+              @click.prevent="typeClick(radio.value, 'sort')"
               :key="i"
               >{{ radio.label }}</ElRadioButton
             >
           </ElRadioGroup>
-          <ElCheckbox style="margin-left: 20px">仅显待租设备</ElCheckbox>
+          <ElCheckbox
+            style="margin-left: 20px"
+            v-model="filterRef.waitDevice"
+            true-label="1"
+            false-label="0"
+            >仅显待租设备</ElCheckbox
+          >
           <!-- <div class="more">更多</div> -->
         </div>
       </div>
