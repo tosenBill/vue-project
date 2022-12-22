@@ -57,6 +57,30 @@ export const constantRouterMap = [
     ],
   },
   {
+    path: "/order",
+    component: Layout,
+    // redirect: "/lease/LeaseDevice",
+    name: "Order",
+    meta: {
+      title: "订单",
+      alwaysShow: true,
+      hidden: true,
+    },
+    children: [
+      {
+        path: "Cart",
+        component: () => import("@/views/Order/Cart.vue"),
+        name: "Cart",
+        meta: {
+          // hidden: true,
+          // title: t("router.login"),
+          title: "购物车",
+          noTagsView: true,
+        },
+      },
+    ],
+  },
+  {
     path: "/welcome",
     component: () => import("@/views/welcome/welcome.vue"),
     name: "welcome",

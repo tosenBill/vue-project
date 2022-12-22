@@ -1,18 +1,24 @@
 <script setup lang="ts">
 import { ref, watch, computed } from "vue";
-import { useRoute } from "vue-router";
-import { ElButton } from "element-plus";
+import { useRoute, useRouter } from "vue-router";
+import { ElButton, ElBadge } from "element-plus";
 import Detail from "./components/Detail.vue";
 import Comment from "./components/Comment.vue";
 import Plan from "./components/Plan.vue";
 import Nearby from "./components/Nearby.vue";
+
+import { useOrderStore } from "@/store/modules/order";
+
 const route = useRoute();
+const { push } = useRouter();
+const orderStore = useOrderStore();
+const cartCount = computed(() => orderStore.getCartCount);
 const tabsList = [
   { title: "设备详情", desc: "detail" },
   { title: "设备评价", desc: "comment" },
   { title: "使用计划", desc: "plan" },
 ];
-const curTab = ref(tabsList[0].desc);
+const curTab = ref(tabsList[2].desc);
 const tabClickHandle = (tab) => {
   curTab.value = tab.desc;
 };
@@ -26,6 +32,13 @@ const curComp = computed(() => {
   }
 });
 console.log("当前route参数为：", route.params);
+// 加入购物车
+const addCartHandle = () => {
+  orderStore.addItemToCart({ id: route.params.id });
+  orderStore.setCartCount(1);
+  console.log();
+  push("/order/cart");
+};
 </script>
 
 <template>
@@ -48,7 +61,12 @@ console.log("当前route参数为：", route.params);
         <div class="price-btn">
           <div class="price">月租金：<span>￥28900元/月</span></div>
           <div class="btns">
-            <ElButton size="large" color="#e4393c">加入求租清单</ElButton>
+            <ElBadge :value="cartCount" :max="99" class="item">
+              <ElButton size="large" color="#e4393c" @click="addCartHandle"
+                >加入求租清单</ElButton
+              >
+            </ElBadge>
+
             <ElButton size="large" type="primary">设备预约</ElButton>
           </div>
         </div>
