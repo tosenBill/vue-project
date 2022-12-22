@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import { ElTable } from "element-plus";
+import { ElButton } from "element-plus";
 import { ref } from "vue";
 import { Table } from "@/components/Table";
 import type { TableColumn } from "@/types/table";
@@ -63,7 +63,7 @@ const columns: TableColumn[] = [
 const getTableList = async (params?: Params) => {
   setTimeout(() => {
     loading.value = false;
-    tableDataList.value = [];
+    tableDataList.value = [{}];
   }, 3000);
   //   const res = await getTableListApi(
   //     params || {
