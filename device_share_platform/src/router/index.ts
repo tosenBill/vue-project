@@ -78,6 +78,17 @@ export const constantRouterMap = [
           noTagsView: true,
         },
       },
+      {
+        path: "orderInfo/:id",
+        component: () => import("@/views/Order/OrderInfo.vue"),
+        name: "OrderInfo",
+        meta: {
+          // hidden: true,
+          // title: t("router.login"),
+          title: "订单信息填写",
+          noTagsView: true,
+        },
+      },
     ],
   },
   {

@@ -14,7 +14,7 @@ import { setIndex } from "./helper";
 import { getSlot } from "@/utils/tsxHelper";
 import type { TableProps } from "./types";
 import { set } from "lodash-es";
-import {
+import type {
   TableColumn,
   TableSlotDefault,
   Pagination,

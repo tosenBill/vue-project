@@ -18,7 +18,7 @@ const tabsList = [
   { title: "设备评价", desc: "comment" },
   { title: "使用计划", desc: "plan" },
 ];
-const curTab = ref(tabsList[2].desc);
+const curTab = ref(tabsList[0].desc);
 const tabClickHandle = (tab) => {
   curTab.value = tab.desc;
 };
