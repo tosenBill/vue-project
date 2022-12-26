@@ -33,7 +33,7 @@ const currentSize = computed(() => appStore.getCurrentSize);
 
 <template>
   <ConfigGlobal :size="currentSize">
-    <RouterView :class="'' ? `${prefixCls}-grey-mode` : ''" />
+    <router-view :class="'' ? `${prefixCls}-grey-mode` : ''" />
   </ConfigGlobal>
 </template>
 

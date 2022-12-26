@@ -150,6 +150,38 @@ export const asyncRouterMap = [
       },
     ],
   },
+  {
+    path: "/oneLevel",
+    component: Layout,
+    // redirect: "/oneLevel/twoLevel",
+    name: "oneLevel",
+    meta: {
+      title: "一级导航",
+      icon: "ci:error",
+      alwaysShow: true,
+    },
+    children: [
+      {
+        path: "twoLevel",
+        component: () => import("@/views/Error/Two.vue"),
+        name: "twoLevel",
+        meta: {
+          title: "二级导航",
+        },
+        children: [
+          {
+            path: "/oneLevel/twoLevel/threeLevel",
+            component: () => import("@/views/Error/components/Three.vue"),
+            name: "threeLevel",
+            meta: {
+              title: "三级导航",
+              icon: "ci:error",
+            },
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 const router = createRouter({
