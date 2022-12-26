@@ -89,6 +89,17 @@ export const constantRouterMap = [
           noTagsView: true,
         },
       },
+      {
+        path: "complete",
+        component: () => import("@/views/Order/Complete.vue"),
+        name: "complete",
+        meta: {
+          // hidden: true,
+          // title: t("router.login"),
+          title: "订单提交成功",
+          noTagsView: true,
+        },
+      },
     ],
   },
   {
@@ -252,6 +263,55 @@ export const asyncRouterMap = [
     ],
   },
   {
+    path: "/work",
+    component: Layout,
+    // redirect: "/work/index",
+    name: "Work",
+    meta: {
+      title: "工作中心",
+      alwaysShow: true,
+      hideChild: true,
+    },
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/WorkCenter/index.vue"),
+        name: "centerIndex",
+        // redirect: "/index/workOrder",
+        meta: {
+          // hidden: true,
+          // title: t("router.login"),
+          title: "工作中心",
+          noTagsView: true,
+        },
+        children: [
+          {
+            path: "workOrder",
+            component: () => import("@/views/WorkCenter/workOrder.vue"),
+            name: "workOrder",
+            meta: {
+              // hidden: true,
+              // title: t("router.login"),
+              title: "自选订单",
+              noTagsView: true,
+            },
+          },
+          // {
+          //   path: "center",
+          //   component: () => import("@/views/WorkCenter/index.vue"),
+          //   name: "centerPage",
+          //   meta: {
+          //     // hidden: true,
+          //     // title: t("router.login"),
+          //     title: "工作中心",
+          //     noTagsView: true,
+          //   },
+          // },
+        ],
+      },
+    ],
+  },
+  {
     path: "/guide",
     component: Layout,
     name: "guide",
@@ -310,6 +370,10 @@ export const asyncRouterMap = [
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: constantRouterMap,
+  scrollBehavior: () => ({
+    top: 0,
+    behavior: "smooth",
+  }),
 });
 
 export const resetRouter = (): void => {

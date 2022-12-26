@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ElButton, ElCheckbox } from "element-plus";
 import { useRouter } from "vue-router";
-import { ref } from "vue";
+import { ref, unref } from "vue";
 import { Table } from "@/components/Table";
 import type { TableColumn } from "@/types/table";
 // import type { TableColumn, TableSlotDefault } from "@/types/table";
@@ -115,7 +115,15 @@ const getTableList = async (params?: Params) => {
 getTableList();
 
 const actionFn = (data: any) => {
-  console.log(data.row.id);
+  tableDataList.value = unref(tableDataList).filter((item) => {
+    return data.row.id !== item.id;
+  });
+  // for (let [index, value] of unref(tableDataList).entries()) {
+  //   if (data.row.id === value.id) {
+  //     console.log("item", index, value);
+  //     tableDataList.value.splice(index, 1);
+  //   }
+  // }
 };
 
 const loading = ref(true);

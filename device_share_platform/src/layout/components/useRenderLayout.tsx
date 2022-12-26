@@ -7,7 +7,6 @@ import { useDesign } from "@/hooks/web/useDesign";
 const { getPrefixCls } = useDesign();
 
 const prefixCls = getPrefixCls("layout");
-
 export const useRenderLayout = () => {
   const renderClassic = () => {
     return (
@@ -16,10 +15,13 @@ export const useRenderLayout = () => {
           class={[`${prefixCls}-content`, "top-0 h-[100%]"]}
           style="transition: all var(--transition-time-02);"
         >
-          <ElScrollbar class={[`${prefixCls}-content-scrollbar`]}>
-            <Header></Header>
-            <AppView></AppView>
-          </ElScrollbar>
+          {/* <ElScrollbar
+            class={[`${prefixCls}-content-scrollbar`]}
+            ref="scrollLayout"
+          > */}
+          <Header></Header>
+          <AppView></AppView>
+          {/* </ElScrollbar> */}
         </div>
       </>
     );

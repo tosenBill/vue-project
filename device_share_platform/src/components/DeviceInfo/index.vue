@@ -26,6 +26,7 @@ const props = withDefaults(
       </div>
     </div>
   </div>
+  <slot name="footer"></slot>
 </template>
 
 <style lang="less" scoped>

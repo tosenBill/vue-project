@@ -86,4 +86,9 @@ router.afterEach((to) => {
   useTitle(to?.meta?.title as string);
   done(); // 结束Progress
   loadDone();
+  // window.scrollTo({
+  //   // 页面切换时，滚动条平滑切换至顶部
+  //   top: 0,
+  //   behavior: "smooth",
+  // });
 });
