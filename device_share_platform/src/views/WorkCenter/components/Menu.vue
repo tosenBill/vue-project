@@ -9,6 +9,10 @@ const { push } = useRouter();
 const subRouterList = MunuRouter(addRouters).filter(
   (router) => router.name === "Work"
 );
+const emits = defineEmits(["change"]);
+const menuClick = (type: string) => {
+  emits("change", type);
+};
 
 console.log(subRouterList);
 </script>
@@ -17,17 +21,22 @@ console.log(subRouterList);
   <div class="work-menu">
     <div class="item">
       <div class="title">共享中心</div>
-      <div class="sub">个人中心<span class="num">（12）</span></div>
+      <div class="sub" @click="menuClick('Center')">
+        个人中心<span class="num">（12）</span>
+      </div>
     </div>
     <div class="item">
       <div class="title">订单管理</div>
-      <div class="sub">自选订单<span class="num">（23）</span></div>
+      <div class="sub" @click="menuClick('SelfOrder')">
+        自选订单<span class="num">（23）</span>
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="less" scoped>
 .work-menu {
+  min-height: 500px;
   .title {
     font-weight: 700;
     font-style: normal;

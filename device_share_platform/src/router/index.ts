@@ -265,7 +265,7 @@ export const asyncRouterMap = [
   {
     path: "/work",
     component: Layout,
-    // redirect: "/work/index",
+    redirect: "/work/index",
     name: "Work",
     meta: {
       title: "工作中心",
@@ -284,30 +284,17 @@ export const asyncRouterMap = [
           title: "工作中心",
           noTagsView: true,
         },
-        children: [
-          {
-            path: "workOrder",
-            component: () => import("@/views/WorkCenter/workOrder.vue"),
-            name: "workOrder",
-            meta: {
-              // hidden: true,
-              // title: t("router.login"),
-              title: "自选订单",
-              noTagsView: true,
-            },
-          },
-          // {
-          //   path: "center",
-          //   component: () => import("@/views/WorkCenter/index.vue"),
-          //   name: "centerPage",
-          //   meta: {
-          //     // hidden: true,
-          //     // title: t("router.login"),
-          //     title: "工作中心",
-          //     noTagsView: true,
-          //   },
-          // },
-        ],
+      },
+      {
+        path: "workOrder",
+        component: () => import("@/views/WorkCenter/workOrder.vue"),
+        name: "workOrder",
+        meta: {
+          // hidden: true,
+          // title: t("router.login"),
+          title: "自选订单",
+          noTagsView: true,
+        },
       },
     ],
   },
