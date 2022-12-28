@@ -35,6 +35,7 @@ interface AppState {
   footer: boolean;
   theme: ThemeTypes;
   fixedMenu: boolean;
+  isLogin: boolean;
 }
 
 export const useAppStore = defineStore("app", {
@@ -96,6 +97,7 @@ export const useAppStore = defineStore("app", {
         // 头部边框颜色
         topToolBorderColor: "#eee",
       },
+      isLogin: false, // 是否登录状态
     };
   },
   getters: {
@@ -173,6 +175,9 @@ export const useAppStore = defineStore("app", {
     },
     getFooter(): boolean {
       return this.footer;
+    },
+    getIsLogin(): boolean {
+      return this.isLogin;
     },
   },
   actions: {
@@ -266,6 +271,9 @@ export const useAppStore = defineStore("app", {
     },
     setFooter(footer: boolean) {
       this.footer = footer;
+    },
+    setIsLogin() {
+      this.isLogin = !!wsCache.get(this.getUserInfo);
     },
   },
 });

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRoute } from "vue-router";
 import { LoginForm, RegisterForm } from "./components";
 import { ThemeSwitch } from "@/components/ThemeSwitch";
 import { LocaleDropdown } from "@/components/LocaleDropdown";
@@ -7,14 +8,13 @@ import { underlineToHump } from "@/utils";
 import { useAppStore } from "@/store/modules/app";
 import { useDesign } from "@/hooks/web/useDesign";
 import { ref } from "vue";
+console.log(useRoute().path);
 
 const { getPrefixCls } = useDesign();
 
 const prefixCls = getPrefixCls("login");
 
 const appStore = useAppStore();
-
-// const { t } = useI18n();
 
 const isLogin = ref(true);
 
@@ -30,65 +30,31 @@ const toLogin = () => {
 <template>
   <div
     :class="prefixCls"
-    class="h-[100%] relative <xl:bg-v-dark <sm:px-10px <xl:px-10px <md:px-10px"
+    class="h-[100%] relative <sm:px-10px <xl:px-10px <md:px-10px login-container"
   >
     <div class="relative h-full flex mx-auto">
       <div
-        :class="`${prefixCls}__left flex-1 bg-gray-500 bg-opacity-20 relative p-30px <xl:hidden`"
+        :class="`${prefixCls}__left flex-1 bg-opacity-20 relative <xl:hidden`"
       >
-        <div class="flex items-center relative text-white">
-          <img
-            src="@/assets/imgs/logo.png"
-            alt=""
-            class="w-48px h-48px mr-10px"
-          />
-          <span class="text-20px font-bold">{{
-            underlineToHump(appStore.getTitle)
-          }}</span>
-        </div>
         <div class="flex justify-center items-center h-[calc(100%-60px)]">
-          <TransitionGroup
+          <Transition
             appear
             tag="div"
+            class="transition-lf"
             enter-active-class="animate__animated animate__bounceInLeft"
           >
-            <img
-              src="@/assets/svgs/login-box-bg.svg"
-              key="1"
-              alt=""
-              class="w-350px"
-            />
-            <div class="text-3xl text-white" key="2">
-              WELCOME
-              <!-- {{ t("login.welcome") }} -->
+            <div class="info">
+              <div class="h1"><span>中油工程</span>设备共享平台</div>
+              <div class="h4">工程设备共享解决方案</div>
+              <div class="intorduce">
+                <div class="btn">点击查看</div>
+                <img class="img" src="@/assets/imgs/home_3.png" alt="" />
+              </div>
             </div>
-            <div class="mt-5 font-normal text-white text-14px" key="3">
-              LOGIN MESSAGE
-              <!-- {{ t("login.message") }} -->
-            </div>
-          </TransitionGroup>
+          </Transition>
         </div>
       </div>
       <div class="flex-1 p-30px <sm:p-10px dark:bg-v-dark relative">
-        <div
-          class="flex justify-between items-center text-white @2xl:justify-end @xl:justify-end"
-        >
-          <div class="flex items-center @2xl:hidden @xl:hidden">
-            <img
-              src="@/assets/imgs/logo.png"
-              alt=""
-              class="w-48px h-48px mr-10px"
-            />
-            <span class="text-20px font-bold">{{
-              underlineToHump(appStore.getTitle)
-            }}</span>
-          </div>
-
-          <div class="flex justify-end items-center space-x-10px">
-            <ThemeSwitch />
-            <LocaleDropdown class="<xl:text-white dark:text-white" />
-          </div>
-        </div>
         <Transition
           appear
           enter-active-class="animate__animated animate__bounceInRight"
@@ -129,6 +95,49 @@ const toLogin = () => {
       background-position: center;
       background-repeat: no-repeat;
       content: "";
+    }
+  }
+  &.login-container {
+    .transition-lf.info {
+      .h1 {
+        font-size: 36px;
+        color: #999999;
+        font-weight: 700;
+        > span {
+          margin-right: 10px;
+        }
+      }
+      .h4 {
+        color: #999;
+        font-size: 24px;
+      }
+      .intorduce {
+        display: flex;
+        align-items: flex-end;
+        margin-top: 20px;
+        &::before {
+          content: "";
+          display: inline-block;
+        }
+      }
+      .btn {
+        width: 200px;
+        height: 45px;
+        background-color: rgba(240, 72, 68, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 3px;
+        font-size: 18px;
+        color: #ffffff;
+        margin-top: 30px;
+      }
+      .img {
+        width: 435px;
+        height: 290px;
+        transform: translate(20px, 20px);
+      }
     }
   }
 }

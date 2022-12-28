@@ -23,7 +23,7 @@ const appStore = useAppStore();
 
 const permissionStore = usePermissionStore();
 
-const { currentRoute, addRoute, push } = useRouter();
+const { currentRoute, addRoute, push, replace } = useRouter();
 
 const { wsCache } = useCache();
 

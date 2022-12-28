@@ -3,8 +3,8 @@ const props = withDefaults(
   defineProps<{
     // 设备信息
     info: any;
-    showCompany: boolean;
-    showCustom: boolean;
+    showCompany?: boolean;
+    showCustom?: boolean;
     img_width?: string;
     img_height?: string;
   }>(),
@@ -57,14 +57,14 @@ const props = withDefaults(
     flex-direction: column;
     justify-content: center;
     .name {
-      margin: 5px 0;
+      margin-bottom: 5px;
       font-size: 16px;
       color: #666;
     }
     .item {
       font-size: 12px;
       color: #999;
-      height: 28px;
+      // height: 28px;
       &.weight span {
         margin-right: 10px;
       }

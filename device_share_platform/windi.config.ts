@@ -16,7 +16,7 @@ export default defineConfig({
     extend: {
       backgroundColor: {
         // 暗黑背景色
-        "v-dark": "var(--dark-bg-color)",
+        // "v-dark": "var(--dark-bg-color)",
       },
       // screens: {
       //   sm: '768px',

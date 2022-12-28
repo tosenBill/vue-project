@@ -1,13 +1,12 @@
 <script setup lang="tsx">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { ElButton, ElSelect, ElCheckbox, ElDatePicker } from "element-plus";
+import { ElButton, ElSelect, ElCheckbox } from "element-plus";
 import { ContentWrap } from "@/components/ContentWrap";
-import { Table } from "@/components/Table";
+import DeviceInfoTable from "./components/DeviceInfoTable.vue";
 import { svg } from "@/utils";
 import type { TableColumn } from "@/types/table";
 import DemoImg from "@/assets/imgs/avatar.jpg";
-import DeviceInfo from "@/components/DeviceInfo/index.vue";
 
 const { push } = useRouter();
 let tableDataList = ref<any[]>([]);
@@ -175,32 +174,11 @@ const submitHandle = async () => {
       </div>
     </div>
     <div class="title">设备信息</div>
-    <div class="device-info-ma">
-      <Table
-        :columns="columns"
-        :data="tableDataList"
-        :loading="loading"
-        :selection="false"
-        :defaultSort="{ prop: 'display_time', order: 'descending' }"
-      >
-        <template #device_info="data">
-          <DeviceInfo :info="data.row.device_info">
-            <template #footer>
-              <div class="date-expires">
-                <span>选择进出场日期：</span>
-                <ElDatePicker
-                  v-model="data.row.date_range"
-                  type="daterange"
-                  range-separator="至"
-                  start-placeholder="开始时间"
-                  end-placeholder="结束时间"
-                />
-              </div>
-            </template>
-          </DeviceInfo>
-        </template>
-      </Table>
-    </div>
+    <DeviceInfoTable
+      :columns="columns"
+      :list="tableDataList"
+      :loading="loading"
+    />
     <div class="submit-info">
       <div class="lf">
         <div class=""><span>联系人：</span>张三</div>
@@ -309,12 +287,12 @@ const submitHandle = async () => {
       border: 1px solid #f04844;
     }
   }
-  .device-info-ma {
-    margin-bottom: 20px;
-  }
-  .date-expires {
-    margin-top: 5px;
-  }
+  // .device-info-ma {
+  //   margin-bottom: 20px;
+  // }
+  // .date-expires {
+  //   margin-top: 5px;
+  // }
   .submit-info {
     .borderInfo;
     background-color: rgba(249, 249, 249, 1);

@@ -23,15 +23,38 @@ export const constantRouterMap = [
   },
   {
     path: "/login",
-    component: () => import("../views/Login/LoginPage.vue"),
+    component: Layout,
+    // redirect: "/home/index",
     name: "Login",
     meta: {
-      hidden: true,
-      // title: t("router.login"),
       title: "登录",
-      noTagsView: true,
+      alwaysShow: true,
+      hideChild: true,
     },
+    children: [
+      {
+        path: "/login",
+        component: () => import("@/views/Login/LoginPage.vue"),
+        meta: {
+          // hidden: true,
+          // title: t("router.login"),
+          title: "登录",
+          noTagsView: true,
+        },
+      },
+    ],
   },
+  // {
+  //   path: "/login",
+  //   component: () => import("@/views/Login/LoginPage.vue"),
+  //   name: "Login",
+  //   meta: {
+  //     hidden: true,
+  //     // title: t("router.login"),
+  //     title: "登录",
+  //     noTagsView: true,
+  //   },
+  // },
   {
     path: "/product",
     component: Layout,

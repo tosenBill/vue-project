@@ -128,7 +128,8 @@ const menuChangeHandle = (res: string) => (curNenu.value = res);
 }
 .work-center {
   display: flex;
-  margin: 10px 0;
+  margin-top: 10px;
+  padding-bottom: 10px;
   .mune-list {
     width: 220px;
     margin-right: 20px;
