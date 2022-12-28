@@ -36,12 +36,14 @@ interface AppState {
   theme: ThemeTypes;
   fixedMenu: boolean;
   isLogin: boolean;
+  localUser: any;
 }
 
 export const useAppStore = defineStore("app", {
   state: (): AppState => {
     return {
       userInfo: "userInfo", // 登录信息存储字段-建议每个项目换一个字段，避免与其他项目冲突
+      localUser: null, // starage里的userInfo
       sizeMap: ["default", "large", "small"],
       mobile: false, // 是否是移动端
       title: import.meta.env.VITE_APP_TITLE, // 标题
@@ -179,6 +181,9 @@ export const useAppStore = defineStore("app", {
     getIsLogin(): boolean {
       return this.isLogin;
     },
+    getLocalUser(): any {
+      return this.localUser;
+    },
   },
   actions: {
     setBreadcrumb(breadcrumb: boolean) {
@@ -228,6 +233,9 @@ export const useAppStore = defineStore("app", {
       wsCache.set("fixedMenu", fixedMenu);
       this.fixedMenu = fixedMenu;
     },
+    setLocalUser() {
+      this.localUser = wsCache.get(this.getUserInfo);
+    },
     setPageLoading(pageLoading: boolean) {
       this.pageLoading = pageLoading;
     },
@@ -273,7 +281,11 @@ export const useAppStore = defineStore("app", {
       this.footer = footer;
     },
     setIsLogin() {
-      this.isLogin = !!wsCache.get(this.getUserInfo);
+      console.log(
+        "wsCache.get(this.getUserInfo)",
+        wsCache.get(this.getUserInfo)
+      );
+      this.isLogin = wsCache.get(this.getUserInfo);
     },
   },
 });

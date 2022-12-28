@@ -3,14 +3,17 @@ import { ref, reactive, unref, computed } from "vue";
 
 import { Logo } from "@/components/LogoTitle";
 import { ElButton } from "element-plus";
+import { useAppStore } from "@/store/modules/app";
 import { usePermissionStore } from "@/store/modules/permission";
 import { useRouter } from "vue-router";
 import { MunuRouter } from "./useRenderMenuItem";
 
-const { addRouters } = usePermissionStore();
+const permissionStore = usePermissionStore();
+const appStore = useAppStore();
 const { push } = useRouter();
 
-const routerList = MunuRouter(addRouters);
+const localUser = computed(() => appStore.getLocalUser);
+const routerList = computed(() => MunuRouter(permissionStore.addRouters));
 
 const state = reactive({ isMouseEnter: false, category: {} });
 const enter = (item: any) => {
@@ -75,7 +78,7 @@ const publish = (router) => {
               </div>
             </div>
           </div>
-          <div class="publish">
+          <div class="publish" v-if="localUser">
             <ElButton type="primary" @click="publish('/publishDevice')"
               >发布设备</ElButton
             >

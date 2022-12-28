@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed, reactive } from "vue";
 import { useRouter } from "vue-router";
 
 import { ElInput, ElMessageBox, ElBadge } from "element-plus";
@@ -15,7 +15,7 @@ const { wsCache } = useCache();
 
 const { replace } = useRouter();
 
-const userInfo = wsCache.get(appStore.getUserInfo);
+const localUser = computed(() => appStore.getLocalUser);
 
 const loginOut = () => {
   ElMessageBox.confirm("是否退出本系统", "温馨提示", {
@@ -33,6 +33,7 @@ const loginOut = () => {
       wsCache.clear();
       resetRouter(); // 重置静态路由表
       replace("/login");
+      appStore.setLocalUser();
     })
     .catch(() => {});
 };
@@ -63,8 +64,8 @@ const loginOut = () => {
         <span>共享中心角色登入</span>
         <span>在线客服</span>
 
-        <span v-if="userInfo && userInfo.username" class="user-info">
-          <span>{{ userInfo.username }}·</span>
+        <span v-if="localUser && localUser.username" class="user-info">
+          <span>{{ localUser.username }}·</span>
           <span @click="loginOut">退出</span>
         </span>
         <span v-else>请您登录</span>

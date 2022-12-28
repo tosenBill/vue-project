@@ -115,6 +115,7 @@ const signIn = async () => {
         console.log("login-res", res);
         if (res) {
           wsCache.set(appStore.getUserInfo, res.data); // TODO:
+          appStore.setLocalUser();
           // 是否使用动态路由
           if (appStore.getDynamicRouter) {
             getRole();

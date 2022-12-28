@@ -6,6 +6,7 @@ import {
 // import { Layout } from "@/utils/routerHelper";
 // import Layout from "../layout/Layout.vue";
 const Layout = () => import("@/layout/Layout.vue");
+import { usePermissionStore } from "@/store/modules/permission";
 
 import type { App } from "vue";
 
@@ -386,13 +387,19 @@ const router = createRouter({
   }),
 });
 
-export const resetRouter = (): void => {
+export const resetRouter = async (): void => {
   const resetWhiteNameList = ["Redirect", "Login", "NoFind", "Root"];
+
+  const permissionStore = usePermissionStore();
   router.getRoutes().forEach((route) => {
     const { name } = route;
     if (name && !resetWhiteNameList.includes(name as string)) {
       router.hasRoute(name) && router.removeRoute(name);
     }
+  });
+  //  重置pinia中的router
+  await permissionStore.generateRoutes("admin").catch((err) => {
+    console.log("err", err);
   });
 };
 
