@@ -11,7 +11,7 @@ import { usePermissionStore } from "@/store/modules/permission";
 import { useRouter } from "vue-router";
 import type { RouteLocationNormalizedLoaded, RouteRecordRaw } from "vue-router";
 import type { UserType } from "@/api/login/types";
-import { useValidator } from "@/hooks/web/useValidator";
+import { useValidator, validatePassword } from "@/hooks/web/useValidator";
 import type { FormSchema } from "@/types/form";
 import { asyncRouterMap } from "@/router";
 
@@ -28,10 +28,29 @@ const { currentRoute, addRoute, push, replace } = useRouter();
 const { wsCache } = useCache();
 
 // const { t } = useI18n();
+const validatePwd = (rule: any, value: any, callback: any) => {
+  console.log("value", value);
+  if (value === "") {
+    callback(new Error("请输入密码"));
+  } else if (!validatePassword(value)) {
+    callback(new Error("至少包含大小写字母、数字、特殊字符长度在8-16位之间"));
+  } else {
+    callback();
+  }
+};
 
 const rules = {
-  username: [required()],
-  password: [required()],
+  username: [
+    {
+      required: true,
+      message: "用户名为必填项",
+    },
+  ],
+  password: [
+    {
+      validator: validatePwd,
+    },
+  ],
 };
 
 const schema = reactive<FormSchema[]>([
@@ -50,7 +69,7 @@ const schema = reactive<FormSchema[]>([
       span: 24,
     },
     componentProps: {
-      placeholder: "usernamePlaceholder",
+      placeholder: "用户名称/手机号码",
     },
   },
   {
@@ -65,7 +84,8 @@ const schema = reactive<FormSchema[]>([
       style: {
         width: "100%",
       },
-      placeholder: "passwordPlaceholder",
+      placeholder: "输入登录密码",
+      maxlength: 16,
     },
   },
   {
@@ -187,10 +207,7 @@ const toRegister = () => {
     @register="register"
   >
     <template #title>
-      <h2 class="text-2xl font-bold text-center w-[100%]">
-        登录
-        <!-- {{ t("login.login") }} -->
-      </h2>
+      <h2 class="text-2xl font-bold text-center w-[100%]">登录</h2>
     </template>
 
     <template #tool>
@@ -214,9 +231,9 @@ const toRegister = () => {
           登录
         </ElButton>
       </div>
-      <div class="w-[100%] mt-15px">
+      <!-- <div class="w-[100%] mt-15px">
         <ElButton class="w-[100%]" @click="toRegister"> 注册 </ElButton>
-      </div>
+      </div> -->
     </template>
   </Form>
 </template>

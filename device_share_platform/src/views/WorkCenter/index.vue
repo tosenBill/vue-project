@@ -6,6 +6,7 @@ import { ContentWrap } from "@/components/ContentWrap";
 import Center from "./components/Center.vue";
 import SelfOrder from "./components/SelfOrder.vue";
 import SelfOrderDetailVue from "./components/SelfOrderDetail.vue";
+import RequstOrder from "./components/RequstOrder.vue";
 
 const curNenu = ref("SelfOrder");
 
@@ -14,6 +15,8 @@ let curComponent = computed(() => {
     return SelfOrder;
   } else if (curNenu.value === "SelfOrderDetailVue") {
     return SelfOrderDetailVue;
+  } else if (curNenu.value === "RequstOrder") {
+    return RequstOrder;
   } else {
     return Center;
   }

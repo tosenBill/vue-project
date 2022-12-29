@@ -30,6 +30,9 @@ console.log(subRouterList);
       <div class="sub" @click="menuClick('SelfOrder')">
         自选订单<span class="num">（23）</span>
       </div>
+      <div class="sub" @click="menuClick('RequstOrder')">
+        需求订单<span class="num">（5）</span>
+      </div>
     </div>
   </div>
 </template>

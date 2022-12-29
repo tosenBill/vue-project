@@ -5,7 +5,6 @@ import {
   computed,
   defineProps,
   useSlots,
-  defineExpose,
   defineComponent,
   onMounted,
 } from "vue";

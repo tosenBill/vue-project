@@ -69,3 +69,15 @@ export const useValidator = () => {
     isEqual,
   };
 };
+
+/**
+ * @description 校验设置密码
+ * @static 至少包含大小写字母、数字、特殊字符大于8个字符
+ * @example var regex = new RegExp('(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,30}');
+ */
+
+export function validatePassword(pwd = "") {
+  return /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[_!@#\\$%\\^&\\*`~()\\-\\+=])[0-9a-zA-Z_!@#\\$%\\^&\\*`~()\\-\\+=]{8,16}$/.test(
+    pwd
+  );
+}
